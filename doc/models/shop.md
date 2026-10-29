@@ -1,0 +1,122 @@
+
+# Shop
+
+## Structure
+
+`Shop`
+
+## Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `string` | Required | - |
+| `slug` | `string` | Required | - |
+| `status` | [`Status`](../../doc/models/status.md) | Required | - |
+| `productType` | [`ProductType1`](../../doc/models/product-type-1.md) | Required | - |
+| `priceCents` | `number` | Required | - |
+| `currency` | `string` | Required | - |
+| `shippingCents` | `number \| undefined` | Optional | - |
+| `shipCountries` | `string \| null \| undefined` | Optional | - |
+| `stock` | `number \| null \| undefined` | Optional | - |
+| `delivery` | [`Delivery1 \| undefined`](../../doc/models/delivery-1.md) | Optional | - |
+| `accessUrl` | `string \| null \| undefined` | Optional | - |
+| `paypalEmail` | `string \| null \| undefined` | Optional | - |
+| `sellerEmail` | `string \| null \| undefined` | Optional | - |
+| `paypalMerchantId` | `string \| null \| undefined` | Optional | The connected PayPal account (`connectPayPal`). Sales go here when it can receive payments. |
+| `paypalStatus` | [`ShopPaypalStatus \| null \| undefined`](../../doc/models/containers/shop-paypal-status.md) | Optional | This is a container for one-of cases. |
+| `zapierHookUrl` | `string \| null \| undefined` | Optional | - |
+| `inGallery` | `boolean \| undefined` | Optional | - |
+| `accountId` | `string \| null \| undefined` | Optional | The seller account that owns the shop, if it was made while signed in. |
+| `options` | [`ShopOption[] \| undefined`](../../doc/models/shop-option.md) | Optional | - |
+| `optionStock` | `Record<string, number \| null> \| undefined` | Optional | Stock per combination, keyed by its values in option order joined with `/` (e.g. `M / Black`). A missing key or `null` means unlimited; `0` is sold out.<br><br>**Constraints**: `>= 0` |
+| `suggestions` | [`ShopSuggestions \| null \| undefined`](../../doc/models/containers/shop-suggestions.md) | Optional | This is a container for one-of cases. |
+| `photoBlob` | `string \| null \| undefined` | Optional | Image id for `getImage`. The cover photo. |
+| `galleryBlobs` | `string[] \| undefined` | Optional | The other photos, in order. |
+| `heroBlob` | `string \| null \| undefined` | Optional | - |
+| `heroStatus` | [`HeroStatus \| undefined`](../../doc/models/hero-status.md) | Optional | - |
+| `heroError` | `string \| null \| undefined` | Optional | - |
+| `aiSource` | [`AiSource \| undefined`](../../doc/models/ai-source.md) | Optional | - |
+| `sourceUrl` | `string \| null \| undefined` | Optional | - |
+| `referral` | [`ShopReferral \| null \| undefined`](../../doc/models/containers/shop-referral.md) | Optional | This is a container for one-of cases. |
+| `spec` | [`DesignSpec`](../../doc/models/design-spec.md) | Required | What Gemini designed. OneThing's templates render it; Gemini never writes HTML. |
+| `createdAt` | `string \| undefined` | Optional | - |
+
+## Example
+
+```ts
+import {
+  Delivery1,
+  Layout,
+  ProductType1,
+  ProductType2,
+  Shop,
+  Status,
+} from 'one-thing-sdk';
+
+const shop: Shop = {
+  id: 'id0',
+  slug: 'slug4',
+  status: Status.Draft,
+  productType: ProductType1.Digital,
+  priceCents: 240,
+  currency: 'USD',
+  spec: {
+    productType: ProductType2.Digital,
+    productName: 'productName2',
+    layout: Layout.Minimal,
+    palette: {
+      background: '#14171a',
+      surface: '#14171a',
+      text: '#14171a',
+      muted: '#14171a',
+      accent: '#14171a',
+      accentText: '#14171a',
+    },
+    fonts: {
+      heading: 'heading2',
+      body: 'body6',
+    },
+    headline: 'headline2',
+    bullets: [
+      'bullets0',
+      'bullets1',
+      'bullets2'
+    ],
+    faq: [
+      {
+        q: 'q0',
+        a: 'a8',
+      }
+    ],
+    ctaLabel: 'ctaLabel6',
+    eyebrow: 'eyebrow6',
+    subheadline: 'subheadline8',
+    story: 'story6',
+    details: [
+      {
+        label: 'label0',
+        value: 'value2',
+      },
+      {
+        label: 'label0',
+        value: 'value2',
+      },
+      {
+        label: 'label0',
+        value: 'value2',
+      }
+    ],
+    suggestedPriceUsd: 233.64,
+  },
+  shippingCents: 148,
+  shipCountries: 'ship_countries4',
+  stock: 234,
+  delivery: Delivery1.File,
+  accessUrl: 'access_url0',
+  optionStock: {
+    'M / Black': 4,
+    'L / Black': 0
+  },
+};
+```
+

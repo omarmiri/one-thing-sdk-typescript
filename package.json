@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "typings": "dist/cjs/types/index.d.ts",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.esm.json & tsc -p tsconfig.cjs.json && node ./scripts/split-package-json.mjs",
+    "prepare": "rimraf dist && tsc -p tsconfig.esm.json & tsc -p tsconfig.cjs.json && node ./scripts/split-package-json.mjs",
+    "lint": "eslint **/*.ts --ignore-path .eslintignore",
+    "lint:fix": "eslint **/*.ts --ignore-path .eslintignore --fix"
+  },
+  "peerDependencies": {},
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "quoteProps": "preserve"
+  },
+  "name": "one-thing-sdk",
+  "description": "OneThing turns a photo, a link or a picked product into a live one-product shop that takes PayPal payments, or a recommendation page that earns referral commissions through Channel3.  **How a shop is made** 1. `createShop`: start from a photo, a link, or a Channel3 product. Gemini guesses what it    is, how it's delivered, the price, a short link and the page design. You get back the    shop's link name and an **admin token**. 2. `updateShop`: correct anything the AI guessed, then set `status: live`. 3. Buyers pay on `https://<host>/<slug>` with PayPal. Sellers read orders and ship them.  **Auth.** Seller endpoints take the shop's admin token in the `x-admin-token` header, or a **platform API key** (`Authorization: Bearer ot_sk_…`) for marketplaces that make shops for their own sellers. Buyer endpoints (checkout, access-code verification, downloads) are public.  **Access codes.** A digital product can unlock an app or game instead of shipping a file. Each paid order gets a code such as `K7QF-M2XP-9HTD`; your app calls `verifyAccessCode` before unlocking. Raptor Rush on miriogames.com is a live example.  **Agent-ready.** Every live shop is also published for AI shopping agents: an MCP server at `/api/mcp` with `search_shops`, `get_product`, `create_order` and `get_order`, and the same four as plain GETs for assistants that can only fetch URLs (`listAgentShops`, `getAgentProduct`, `orderByLink`, `getAgentOrder`), with `/llms.txt` as the starting point. Order and status links also have short forms, `/<slug>/buy` and `/o/<order_id>/status`. An agent can find and order, but the buyer still approves every payment at PayPal.  **Limits.** Calls that cost something are capped per network: 120 checkouts per 10 minutes, 10 new shops an hour and 60 AI requests an hour. Over the cap the reply is a 429 with `Retry-After`.  All money moves through PayPal (sandbox in this deployment). OneThing never holds card data.",
+  "author": {
+    "name": "OneThing",
+    "url": "https://github.com/omarmiri/one-thing"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.34.0",
+    "jest": "^29.4.3",
+    "rimraf": "^3.0.2",
+    "ts-jest": "29.2.6",
+    "typescript": "^5.2.0"
+  },
+  "dependencies": {
+    "@apimatic/authentication-adapters": "^0.5.14",
+    "@apimatic/axios-client-adapter": "^0.3.20",
+    "@apimatic/core": "^0.10.30",
+    "@apimatic/json-bigint": "^1.2.0",
+    "@apimatic/schema": "^0.7.21",
+    "tslib": "^2.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/omarmiri/one-thing",
+    "email": "support@apimatic.io"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./metadata": {
+      "import": {
+        "types": "./dist/esm/types/metadata/index.d.ts",
+        "default": "./dist/esm/metadata/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/types/metadata/index.d.ts",
+        "default": "./dist/cjs/metadata/index.js"
+      }
+    }
+  }
+}
