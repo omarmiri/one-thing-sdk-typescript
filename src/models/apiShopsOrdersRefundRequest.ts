@@ -6,6 +6,7 @@
 
 import { boolean, object, optional, Schema } from '../schema.js';
 
+/** How to refund. */
 export interface ApiShopsOrdersRefundRequest {
   /** `true`: don't contact PayPal, just record that the seller refunded it themselves. */
   record?: boolean;

@@ -1,6 +1,8 @@
 
 # Event
 
+What happened.
+
 ## Enumeration
 
 `Event`

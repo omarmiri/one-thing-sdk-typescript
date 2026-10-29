@@ -6,7 +6,9 @@
 
 import { dict, object, Schema, string } from '../schema.js';
 
+/** Gemini's matches. */
 export interface ApiShopsMatchPhotosResponse {
+  /** Colour label → photo id. */
   matches: Record<string, string>;
 }
 

@@ -1,6 +1,8 @@
 
 # Api Paypal Client Token Response
 
+The client token.
+
 ## Structure
 
 `ApiPaypalClientTokenResponse`
@@ -17,7 +19,7 @@
 import { ApiPaypalClientTokenResponse } from 'one-thing-sdk';
 
 const apiPaypalClientTokenResponse: ApiPaypalClientTokenResponse = {
-  clientToken: 'clientToken6',
+  clientToken: 'eyJraWQiOiJFWEFNUExFIn0.example.client-token',
 };
 ```
 

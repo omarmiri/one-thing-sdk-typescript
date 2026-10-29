@@ -6,7 +6,9 @@
 
 import { boolean, object, optional, Schema, string } from '../schema.js';
 
+/** Whether the code is valid. */
 export interface ApiAccessVerifyResponse {
+  /** True if the code belongs to a paid, unrefunded order for this shop. */
   valid: boolean;
   /** The product name, when valid. */
   product?: string;

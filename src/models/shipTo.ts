@@ -6,8 +6,11 @@
 
 import { nullable, object, optional, Schema, string } from '../schema.js';
 
+/** Where it ships, from the buyer's PayPal checkout. Null if PayPal didn't share it. */
 export interface ShipTo {
+  /** The recipient's name. */
   name?: string | null;
+  /** The address on one line. */
   address?: string;
 }
 

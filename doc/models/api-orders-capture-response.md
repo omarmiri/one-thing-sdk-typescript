@@ -1,6 +1,8 @@
 
 # Api Orders Capture Response
 
+The paid order.
+
 ## Structure
 
 `ApiOrdersCaptureResponse`
@@ -10,7 +12,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `orderId` | `string` | Required | OneThing's order id; the thank-you page is `/<slug>/thanks?order=<orderId>`. |
-| `status` | `string` | Required, Constant | **Value**: `'paid'` |
+| `status` | `string` | Required, Constant | Always `paid`.<br><br>**Value**: `'paid'` |
 
 ## Example
 
@@ -18,7 +20,7 @@
 import { ApiOrdersCaptureResponse } from 'one-thing-sdk';
 
 const apiOrdersCaptureResponse: ApiOrdersCaptureResponse = {
-  orderId: 'orderId8',
+  orderId: 'pX4kR9tVb2nQ7sLe',
   status: 'paid',
 };
 ```

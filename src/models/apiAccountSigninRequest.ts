@@ -6,6 +6,7 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** Who is signing in. */
 export interface ApiAccountSigninRequest {
   /** An email address, or a phone number (spaces, dashes and brackets are ignored; keep a leading +). */
   identifier: string;

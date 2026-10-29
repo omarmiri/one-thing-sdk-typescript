@@ -8,7 +8,9 @@ import { object, optional, Schema, string } from '../schema.js';
 
 /** A digital product unlocked with an access code. */
 export interface AgentDeliveryAccessCode {
+  /** Always `access_code`. */
   type: string;
+  /** The buyer's code, which unlocks the seller's app or game. */
   accessCode: string;
   /** The seller's app with the code filled in. */
   startUrl?: string;

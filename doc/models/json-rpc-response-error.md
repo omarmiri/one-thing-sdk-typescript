@@ -1,6 +1,8 @@
 
 # Json Rpc Response Error
 
+A JSON-RPC 2.0 reply from the MCP server.
+
 ## Structure
 
 `JsonRpcResponseError`
@@ -9,10 +11,10 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `jsonrpc` | `string` | Required, Constant | **Value**: `'2.0'` |
+| `jsonrpc` | `string` | Required, Constant | Always `2.0`.<br><br>**Value**: `'2.0'` |
 | `id` | [`JsonRpcResponseErrorId \| null`](../../doc/models/containers/json-rpc-response-error-id.md) | Required | This is a container for one-of cases. |
 | `result` | `unknown \| undefined` | Optional | For `tools/call`: `content` (the answer as JSON text), `structuredContent` (the same object) and `isError`. |
-| `error` | [`Error1 \| undefined`](../../doc/models/error-1.md) | Optional | - |
+| `error` | [`Error \| undefined`](../../doc/models/error.md) | Optional | Present when the call failed. |
 
 ## Example
 

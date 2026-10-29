@@ -1,6 +1,8 @@
 
 # Hero Status
 
+Hero art: `pending` while generating, then `ready` or `failed`; `none` if not requested.
+
 ## Enumeration
 
 `HeroStatus`

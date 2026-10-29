@@ -11,7 +11,7 @@ import {
 } from '../models/apiChannel3SearchResponse.js';
 import { string } from '../schema.js';
 import { BaseApi } from './baseApi.js';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 
 export class ProductsApi extends BaseApi {
   /**
@@ -30,12 +30,12 @@ export class ProductsApi extends BaseApi {
     req.query('q', mapped.q);
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.throwOn(
       503,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([]);

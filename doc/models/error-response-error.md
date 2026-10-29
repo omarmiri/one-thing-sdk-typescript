@@ -1,9 +1,11 @@
 
-# Custom Error
+# Error Response Error
+
+An error reply.
 
 ## Structure
 
-`CustomError`
+`ErrorResponseError`
 
 ## Fields
 
@@ -19,7 +21,7 @@
 try {
   // make the API call
 } catch (error) {
-  if (error instanceof CustomError) {
+  if (error instanceof ErrorResponseError) {
     console.log(error.result);
   }
 }

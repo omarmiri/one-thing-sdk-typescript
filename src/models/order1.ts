@@ -13,16 +13,27 @@ import {
   unknown,
 } from '../schema.js';
 
+/** The order. */
 export interface Order1 {
+  /** OneThing's order id. */
   id?: string;
+  /** PayPal's order id. */
   paypalOrderId?: string | null;
+  /** The total, as a decimal string. */
   amount?: string;
+  /** ISO 4217 currency code. */
   currency?: string;
+  /** The buyer's name, from PayPal. */
   buyerName?: string | null;
+  /** The buyer's email, from PayPal. */
   buyerEmail?: string | null;
+  /** Physical orders: the address, by field. */
   shippingAddress?: unknown | null;
+  /** As in `Order.fulfillment_status`. */
   fulfillmentStatus?: string;
+  /** The tracking number, once shipped. */
   trackingNumber?: string | null;
+  /** The carrier, once shipped. */
   carrier?: string | null;
 }
 

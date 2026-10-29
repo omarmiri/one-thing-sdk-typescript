@@ -26,50 +26,76 @@ import {
   ShopSuggestions,
   shopSuggestionsSchema,
 } from './containers/shopSuggestions.js';
-import { Delivery1, delivery1Schema } from './delivery1.js';
+import { Delivery2, delivery2Schema } from './delivery2.js';
 import { DesignSpec, designSpecSchema } from './designSpec.js';
 import { HeroStatus, heroStatusSchema } from './heroStatus.js';
 import { ProductType1, productType1Schema } from './productType1.js';
 import { ShopOption, shopOptionSchema } from './shopOption.js';
-import { Status, statusSchema } from './status.js';
+import { Status1, status1Schema } from './status1.js';
 
+/** A shop, as its seller sees it. */
 export interface Shop {
+  /** OneThing's internal shop id. */
   id: string;
+  /** The shop's link name. */
   slug: string;
-  status: Status;
+  /** `draft` until the seller goes live; only `live` shops take orders. */
+  status: Status1;
+  /** `physical` ships, `digital` downloads or unlocks, `referral` recommends a Channel3 product. */
   productType: ProductType1;
+  /** The price in cents. */
   priceCents: number;
+  /** ISO 4217 currency code. */
   currency: string;
+  /** Shipping per order, in cents. */
   shippingCents?: number;
+  /** Comma-separated ISO country codes; null or empty means anywhere PayPal ships. */
   shipCountries?: string | null;
+  /** How many are left; null for unlimited. With options, see `option_stock`. */
   stock?: number | null;
-  delivery?: Delivery1;
+  /** Digital products: `file` (a download) or `access_code` (a code that unlocks an app or game). */
+  delivery?: Delivery2;
+  /** Access-code products: where buyers enter their code. */
   accessUrl?: string | null;
+  /** The PayPal account paid when no account is connected. */
   paypalEmail?: string | null;
+  /** Where order notifications go. */
   sellerEmail?: string | null;
   /** The connected PayPal account (`connectPayPal`). Sales go here when it can receive payments. */
   paypalMerchantId?: string | null;
+  /** What PayPal last said about the connected account; null when none is connected. */
   paypalStatus?: ShopPaypalStatus | null;
+  /** A Zapier Catch Hook that gets an `OrderEvent` for each paid, shipped or refunded order. */
   zapierHookUrl?: string | null;
+  /** Whether the shop is featured at `/gallery` while live. */
   inGallery?: boolean;
   /** The seller account that owns the shop, if it was made while signed in. */
   accountId?: string | null;
+  /** What the buyer picks, such as size or colour. */
   options?: ShopOption[];
   /** Stock per combination, keyed by its values in option order joined with ` / ` (e.g. `M / Black`). A missing key or `null` means unlimited; `0` is sold out. */
   optionStock?: Record<string, number | null>;
+  /** What the AI thinks buyers will pick or ask; null once handled. */
   suggestions?: ShopSuggestions | null;
   /** Image id for `getImage`. The cover photo. */
   photoBlob?: string | null;
   /** The other photos, in order. */
   galleryBlobs?: string[];
+  /** Image id of the AI hero art, when there is one. */
   heroBlob?: string | null;
+  /** Hero art: `pending` while generating, then `ready` or `failed`; `none` if not requested. */
   heroStatus?: HeroStatus;
+  /** Why hero art failed, when it did. */
   heroError?: string | null;
+  /** Who designed the page: `gemini`, or `fallback` when Gemini wasn't available and a plain template was used. */
   aiSource?: AiSource;
+  /** The product link the shop was made from, if any. */
   sourceUrl?: string | null;
+  /** Recommendation shops: the Channel3 product; null otherwise. */
   referral?: ShopReferral | null;
   /** What Gemini designed. OneThing's templates render it; Gemini never writes HTML. */
   spec: DesignSpec;
+  /** When the shop was made. */
   createdAt?: string;
 }
 
@@ -77,14 +103,14 @@ export const shopSchema: Schema<Shop> = lazy(() =>
   object({
     id: ['id', string()],
     slug: ['slug', string()],
-    status: ['status', statusSchema],
+    status: ['status', status1Schema],
     productType: ['product_type', productType1Schema],
     priceCents: ['price_cents', number()],
     currency: ['currency', string()],
     shippingCents: ['shipping_cents', optional(number())],
     shipCountries: ['ship_countries', optional(nullable(string()))],
     stock: ['stock', optional(nullable(number()))],
-    delivery: ['delivery', optional(delivery1Schema)],
+    delivery: ['delivery', optional(delivery2Schema)],
     accessUrl: ['access_url', optional(nullable(string()))],
     paypalEmail: ['paypal_email', optional(nullable(string()))],
     sellerEmail: ['seller_email', optional(nullable(string()))],

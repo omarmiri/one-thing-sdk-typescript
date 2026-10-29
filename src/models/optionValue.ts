@@ -6,8 +6,11 @@
 
 import { object, optional, Schema, string } from '../schema.js';
 
+/** One value of an option. */
 export interface OptionValue {
+  /** What the buyer sees and picks. */
   label: string;
+  /** A colour as `#rrggbb`. */
   hex?: string;
   /** Colours: the shop photo (id) that shows this colour. See `matchColorPhotos`. */
   photo?: string;

@@ -6,8 +6,11 @@
 
 import { object, optional, Schema, string } from '../schema.js';
 
+/** The carrier and tracking number once shipped; null before. */
 export interface Tracking {
+  /** The shipping carrier. */
   carrier?: string;
+  /** The tracking number. */
   number?: string;
 }
 

@@ -1,6 +1,8 @@
 
 # Api Shops Paypal Response
 
+The onboarding link.
+
 ## Structure
 
 `ApiShopsPaypalResponse`
@@ -17,7 +19,7 @@
 import { ApiShopsPaypalResponse } from 'one-thing-sdk';
 
 const apiShopsPaypalResponse: ApiShopsPaypalResponse = {
-  url: 'url0',
+  url: 'https://www.sandbox.paypal.com/bizsignup/partner/entry?referralToken=EXAMPLE',
 };
 ```
 

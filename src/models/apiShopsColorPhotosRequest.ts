@@ -6,6 +6,7 @@
 
 import { dict, nullable, object, Schema, string } from '../schema.js';
 
+/** Which photo shows each colour. */
 export interface ApiShopsColorPhotosRequest {
   /** Colour label → photo id, or `null`. */
   photos: Record<string, string | null>;

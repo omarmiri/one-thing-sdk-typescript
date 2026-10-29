@@ -6,9 +6,11 @@
 
 import { dict, object, optional, Schema, string } from '../schema.js';
 
+/** One combination of option values. */
 export interface Variant {
   /** The buyer's pick, one value per option, keyed by option name. */
   choice: Record<string, string>;
+  /** `in_stock`, `in_stock (N left)` or `sold_out`. */
   availability: string;
   /** `orderByLink` for this pick. Left out when it's sold out. */
   orderUrl?: string;

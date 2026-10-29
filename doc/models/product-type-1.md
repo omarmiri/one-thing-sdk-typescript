@@ -1,6 +1,8 @@
 
 # Product Type 1
 
+`physical` ships, `digital` downloads or unlocks, `referral` recommends a Channel3 product.
+
 ## Enumeration
 
 `ProductType1`

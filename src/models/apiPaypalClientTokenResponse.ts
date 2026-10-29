@@ -6,6 +6,7 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The client token. */
 export interface ApiPaypalClientTokenResponse {
   /** Pass to `createInstance` in the PayPal JavaScript SDK v6. */
   clientToken: string;

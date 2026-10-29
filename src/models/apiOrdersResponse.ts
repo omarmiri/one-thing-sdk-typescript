@@ -6,6 +6,7 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The PayPal order to approve. */
 export interface ApiOrdersResponse {
   /** PayPal order id. */
   id: string;

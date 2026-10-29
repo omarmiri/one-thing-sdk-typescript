@@ -15,15 +15,22 @@ import {
   string,
 } from '../schema.js';
 import { AgentMoney, agentMoneySchema } from './agentMoney.js';
-import { ProductType1, productType1Schema } from './productType1.js';
-import { Status, statusSchema } from './status.js';
+import { ProductType3, productType3Schema } from './productType3.js';
+import { Status3, status3Schema } from './status3.js';
 
+/** A shop as a platform API key lists it. */
 export interface PlatformShop {
+  /** The shop's link name. */
   slug: string;
-  status: Status;
+  /** `draft` until the seller goes live. */
+  status: Status3;
+  /** The product's name. */
   name: string;
+  /** The shop's one-line pitch. */
   headline?: string;
-  productType: ProductType1;
+  /** `physical`, `digital` or `referral`. */
+  productType: ProductType3;
+  /** An amount of money, as a number and as a label. */
   price: AgentMoney;
   /** The shop page buyers pay on. */
   url: string;
@@ -33,16 +40,17 @@ export interface PlatformShop {
   paypalConnected: boolean;
   /** Paid orders. */
   sales: number;
+  /** When the shop was made. */
   createdAt: string;
 }
 
 export const platformShopSchema: Schema<PlatformShop> = lazy(() =>
   object({
     slug: ['slug', string()],
-    status: ['status', statusSchema],
+    status: ['status', status3Schema],
     name: ['name', string()],
     headline: ['headline', optional(string())],
-    productType: ['product_type', productType1Schema],
+    productType: ['product_type', productType3Schema],
     price: ['price', agentMoneySchema],
     url: ['url', string()],
     cover: ['cover', optional(nullable(string()))],

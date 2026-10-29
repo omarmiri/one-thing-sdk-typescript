@@ -26,7 +26,7 @@ import { WebhookEvent, webhookEventSchema } from '../models/webhookEvent.js';
 import { array, optional, string } from '../schema.js';
 import { BaseApi } from './baseApi.js';
 import { ApiShopsOrdersRefund409Error } from '../errors/apiShopsOrdersRefund409Error.js';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 
 export class OrdersApi extends BaseApi {
   /**
@@ -44,7 +44,7 @@ export class OrdersApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/orders`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -56,7 +56,7 @@ export class OrdersApi extends BaseApi {
    *
    * @param slug         The shop's link name (current or former).
    * @param orderId      OneThing's order id (`Order.id`).
-   * @param body
+   * @param body         The carrier and tracking number.
    * @return Response from the API call
    */
   async markOrderShipped(
@@ -76,12 +76,12 @@ export class OrdersApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/orders/${mapped.orderId}/ship`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -97,7 +97,8 @@ export class OrdersApi extends BaseApi {
    *
    * @param slug         The shop's link name (current or former).
    * @param orderId      OneThing's order id (`Order.id`).
-   * @param body
+   * @param body         Optional. `record: true` records a refund made in
+   *                                                           PayPal.
    * @return Response from the API call
    */
   async refundOrder(
@@ -117,7 +118,7 @@ export class OrdersApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/orders/${mapped.orderId}/refund`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop or order, or the token doesn't match the shop."
     );
     req.throwOn(
@@ -144,7 +145,7 @@ export class OrdersApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/webhooks`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);

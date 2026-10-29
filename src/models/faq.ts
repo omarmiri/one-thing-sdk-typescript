@@ -6,8 +6,11 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** One question and its answer. */
 export interface Faq {
+  /** The question. */
   q: string;
+  /** The answer. */
   a: string;
 }
 

@@ -1,6 +1,8 @@
 
 # Api Orders Capture 409 Error
 
+Not approved yet.
+
 ## Structure
 
 `ApiOrdersCapture409Error`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `status` | [`Status6 \| undefined`](../../doc/models/status-6.md) | Optional | - |
+| `status` | [`Status6 \| undefined`](../../doc/models/status-6.md) | Optional | `pending` until the buyer approves at PayPal. |
 
 ## Example
 

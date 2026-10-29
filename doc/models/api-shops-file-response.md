@@ -1,6 +1,8 @@
 
 # Api Shops File Response
 
+The uploaded file.
+
 ## Structure
 
 `ApiShopsFileResponse`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ok` | `boolean` | Required | - |
-| `filename` | `string` | Required | - |
+| `ok` | `boolean` | Required | Always `true`. |
+| `filename` | `string` | Required | The file's name, as buyers will download it. |
 
 ## Example
 
@@ -18,8 +20,8 @@
 import { ApiShopsFileResponse } from 'one-thing-sdk';
 
 const apiShopsFileResponse: ApiShopsFileResponse = {
-  ok: false,
-  filename: 'filename8',
+  ok: true,
+  filename: 'dragon-flight-presets.zip',
 };
 ```
 

@@ -13,15 +13,23 @@ import {
   string,
 } from '../schema.js';
 
+/** A Channel3 product in search results. */
 export interface ProductCard {
+  /** Channel3's product id: pass it to `createShop` as `productId`. */
   id: string;
+  /** The product's name. */
   title: string;
+  /** The brand, when known. */
   brand?: string | null;
+  /** The product image's URL. */
   image: string;
+  /** The best offer's price. */
   price: number;
+  /** ISO 4217 currency code. */
   currency: string;
   /** The store with the best offer. */
   retailer: string;
+  /** How many stores sell it. */
   retailers: number;
   /** Best commission rate across offers, 0–1. */
   commission: number;

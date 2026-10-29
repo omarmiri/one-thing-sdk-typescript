@@ -66,7 +66,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -85,8 +85,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Create Checkout Order
@@ -109,7 +109,7 @@ async createCheckoutOrder(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ApiOrdersRequest`](../../doc/models/api-orders-request.md) | Body, Required | - |
+| `body` | [`ApiOrdersRequest`](../../doc/models/api-orders-request.md) | Body, Required | The shop and the buyer's pick. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -145,7 +145,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -164,12 +164,12 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 409 | Taken or unavailable (a link name, or a sold-out product). | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 409 | Taken or unavailable (a link name, or a sold-out product). | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Capture Checkout Order
@@ -224,7 +224,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     } else if (error instanceof ApiOrdersCapture409Error) {
       console.log(error.result);
@@ -246,10 +246,10 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 402 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 402 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 | 409 | The buyer hasn't approved the order yet. | [`ApiOrdersCapture409Error`](../../doc/models/api-orders-capture-409-error.md) |
-| 410 | The last unit (or the last of the buyer's combination) sold while they were paying, or the PayPal checkout expired before they paid. The payment isn't captured, so the buyer isn't charged. | [`CustomError`](../../doc/models/custom-error.md) |
-| 422 | The buyer's funding source was declined (`INSTRUMENT_DECLINED`); they can try another. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 410 | The last unit (or the last of the buyer's combination) sold while they were paying, or the PayPal checkout expired before they paid. The payment isn't captured, so the buyer isn't charged. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 422 | The buyer's funding source was declined (`INSTRUMENT_DECLINED`); they can try another. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 

@@ -9,10 +9,10 @@ import {
   ApiPlatformShopsResponse,
   apiPlatformShopsResponseSchema,
 } from '../models/apiPlatformShopsResponse.js';
-import { Status, statusSchema } from '../models/status.js';
+import { Status5, status5Schema } from '../models/status5.js';
 import { optional } from '../schema.js';
 import { BaseApi } from './baseApi.js';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 
 export class PlatformsApi extends BaseApi {
   /**
@@ -23,15 +23,19 @@ export class PlatformsApi extends BaseApi {
    * @return Response from the API call
    */
   async listMyShops(
-    status?: Status,
+    status?: Status5,
     requestOptions?: RequestOptions
   ): Promise<ApiResponse<ApiPlatformShopsResponse>> {
     const req = this.createRequest('GET', '/api/platform/shops');
     const mapped = req.prepareArgs({
-      status: [status, optional(statusSchema)],
+      status: [status, optional(status5Schema)],
     });
     req.query('status', mapped.status);
-    req.throwOn(401, CustomError, "No API key, or it's wrong or revoked.");
+    req.throwOn(
+      401,
+      ErrorResponseError,
+      "No API key, or it's wrong or revoked."
+    );
     req.authenticate([{ platformKey: true }]);
     return req.callAsJson(apiPlatformShopsResponseSchema, requestOptions);
   }

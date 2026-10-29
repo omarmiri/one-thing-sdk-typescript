@@ -6,8 +6,11 @@
 
 import { object, optional, Schema, string } from '../schema.js';
 
+/** One colour. */
 export interface Color {
+  /** The colour's name, as buyers see it. */
   label: string;
+  /** A colour as `#rrggbb`. */
   hex?: string;
 }
 

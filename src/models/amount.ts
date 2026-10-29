@@ -6,10 +6,15 @@
 
 import { number, object, Schema, string } from '../schema.js';
 
+/** What the order costs, as numbers. */
 export interface Amount {
+  /** The product's price. */
   item: number;
+  /** Shipping; 0 for digital products. */
   shipping: number;
+  /** Product plus shipping: what the buyer pays. */
   total: number;
+  /** ISO 4217 currency code. */
   currency: string;
 }
 

@@ -17,10 +17,15 @@ import { Offer, offerSchema } from './offer.js';
 
 /** A recommended Channel3 product. Buy links are Channel3-tracked, credited to this shop. */
 export interface Referral {
+  /** Channel3's product id. */
   productId: string;
+  /** The product's name. */
   title: string;
+  /** The brand, when known. */
   brand?: string | null;
+  /** The product image's URL. */
   image?: string | null;
+  /** Stores that sell it, with tracked links. */
   offers: Offer[];
 }
 

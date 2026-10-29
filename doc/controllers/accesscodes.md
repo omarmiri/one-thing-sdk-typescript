@@ -28,7 +28,7 @@ async verifyAccessCode(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ApiAccessVerifyRequest`](../../doc/models/api-access-verify-request.md) | Body, Required | - |
+| `body` | [`ApiAccessVerifyRequest`](../../doc/models/api-access-verify-request.md) | Body, Required | The shop and the code to check. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type

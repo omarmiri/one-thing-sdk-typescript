@@ -16,10 +16,13 @@ import {
 import { Kind, kindSchema } from './kind.js';
 import { OptionValue, optionValueSchema } from './optionValue.js';
 
+/** A suggested option. */
 export interface Option {
+  /** What the buyer is choosing. */
   name: string;
   /** `color` shows swatches, and the photo of the picked colour. */
   kind: Kind;
+  /** The values to pick from. */
   values: OptionValue[];
   /** The seller's description or photo named these values; otherwise they're a guess. */
   fromSeller?: boolean;

@@ -40,7 +40,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const q = 'gifts for trail runners under $60';
+const q = 'trail running vest';
 
 try {
   const response = await productsApi.searchProducts(q);
@@ -62,7 +62,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -93,6 +93,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 

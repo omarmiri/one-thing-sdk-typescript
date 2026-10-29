@@ -1,6 +1,8 @@
 
 # Api Shops Photos Request
 
+The new photo order.
+
 ## Structure
 
 `ApiShopsPhotosRequest`
@@ -18,8 +20,8 @@ import { ApiShopsPhotosRequest } from 'one-thing-sdk';
 
 const apiShopsPhotosRequest: ApiShopsPhotosRequest = {
   photos: [
-    'photos0',
-    'photos1'
+    'zrySajNyao6_j11x',
+    'LFRvGuTU3D8i334X'
   ],
 };
 ```

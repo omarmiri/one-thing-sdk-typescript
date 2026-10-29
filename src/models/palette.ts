@@ -6,12 +6,19 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The page colours, taken from the photo. Text colours are checked for contrast. */
 export interface Palette {
+  /** A colour as `#rrggbb`. */
   background: string;
+  /** A colour as `#rrggbb`. */
   surface: string;
+  /** A colour as `#rrggbb`. */
   text: string;
+  /** A colour as `#rrggbb`. */
   muted: string;
+  /** A colour as `#rrggbb`. */
   accent: string;
+  /** A colour as `#rrggbb`. */
   accentText: string;
 }
 

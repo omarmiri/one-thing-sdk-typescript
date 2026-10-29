@@ -49,7 +49,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await ordersApi.listOrders(slug);
@@ -71,7 +71,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -120,7 +120,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Mark Order Shipped
@@ -146,7 +146,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
 | `orderId` | `string` | Template, Required | OneThing's order id (`Order.id`). |
-| `body` | [`ApiShopsOrdersShipRequest`](../../doc/models/api-shops-orders-ship-request.md) | Body, Required | - |
+| `body` | [`ApiShopsOrdersShipRequest`](../../doc/models/api-shops-orders-ship-request.md) | Body, Required | The carrier and tracking number. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -158,7 +158,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const orderId = 'pX4kR9tVb2nQ7sLe';
 
@@ -191,7 +191,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -211,8 +211,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Refund Order
@@ -238,7 +238,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
 | `orderId` | `string` | Template, Required | OneThing's order id (`Order.id`). |
-| `body` | [`ApiShopsOrdersRefundRequest \| undefined`](../../doc/models/api-shops-orders-refund-request.md) | Body, Optional | - |
+| `body` | [`ApiShopsOrdersRefundRequest \| undefined`](../../doc/models/api-shops-orders-refund-request.md) | Body, Optional | Optional. `record: true` records a refund made in PayPal. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -250,7 +250,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const orderId = 'pX4kR9tVb2nQ7sLe';
 
@@ -281,7 +281,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     } else if (error instanceof ApiShopsOrdersRefund409Error) {
       console.log(error.result);
@@ -303,7 +303,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop or order, or the token doesn't match the shop. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop or order, or the token doesn't match the shop. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 | 409 | Not refundable here; `error` says why. | [`ApiShopsOrdersRefund409Error`](../../doc/models/api-shops-orders-refund-409-error.md) |
 
 
@@ -338,7 +338,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await ordersApi.listWebhookEvents(slug);
@@ -360,7 +360,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -387,5 +387,5 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 

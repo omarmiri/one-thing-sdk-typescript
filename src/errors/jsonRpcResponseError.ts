@@ -6,17 +6,20 @@
 
 import { ApiError } from '../core.js';
 import { JsonRpcResponseErrorId } from '../models/containers/jsonRpcResponseErrorId.js';
-import { Error1 } from '../models/error1.js';
+import { Error } from '../models/error.js';
 
 /**
  * Creates an instance of JsonRpcResponse
  */
 interface JsonRpcResponse {
+  /** Always `2.0`. */
   jsonrpc: string;
+  /** The request's `id`. */
   id: JsonRpcResponseErrorId | null;
   /** For `tools/call`: `content` (the answer as JSON text), `structuredContent` (the same object) and `isError`. */
   result?: unknown;
-  error?: Error1;
+  /** Present when the call failed. */
+  error?: Error;
 }
 
 export class JsonRpcResponseError extends ApiError<JsonRpcResponse> {}

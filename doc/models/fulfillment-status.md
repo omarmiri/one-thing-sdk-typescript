@@ -1,6 +1,8 @@
 
 # Fulfillment Status
 
+`to_ship` and `shipped` for physical orders, `digital_sent` for digital ones, `none` before payment.
+
 ## Enumeration
 
 `FulfillmentStatus`

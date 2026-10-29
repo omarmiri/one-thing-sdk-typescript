@@ -5,13 +5,17 @@
  */
 
 import { nullable, object, Schema, string } from '../schema.js';
-import { Kind1, kind1Schema } from './kind1.js';
+import { Kind2, kind2Schema } from './kind2.js';
 
+/** A shop in search results. */
 export interface AgentShopSummary {
   /** The link name, for `getAgentProduct` and the MCP tools. */
   shop: string;
+  /** The product's name. */
   name: string;
-  kind: Kind1;
+  /** `physical`, `digital` or `referral`. */
+  kind: Kind2;
+  /** The shop's one-line pitch. */
   headline: string;
   /** The price label, e.g. `$2.99`; null for recommendations. */
   price: string | null;
@@ -24,7 +28,7 @@ export interface AgentShopSummary {
 export const agentShopSummarySchema: Schema<AgentShopSummary> = object({
   shop: ['shop', string()],
   name: ['name', string()],
-  kind: ['kind', kind1Schema],
+  kind: ['kind', kind2Schema],
   headline: ['headline', string()],
   price: ['price', nullable(string())],
   image: ['image', nullable(string())],

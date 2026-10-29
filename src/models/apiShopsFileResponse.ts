@@ -6,8 +6,11 @@
 
 import { boolean, object, Schema, string } from '../schema.js';
 
+/** The uploaded file. */
 export interface ApiShopsFileResponse {
+  /** Always `true`. */
   ok: boolean;
+  /** The file's name, as buyers will download it. */
   filename: string;
 }
 

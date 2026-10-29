@@ -6,9 +6,13 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** One question to answer. */
 export interface MissingFact {
+  /** The product detail it becomes. */
   label: string;
+  /** The question, for the seller. */
   question: string;
+  /** An example answer. */
   placeholder: string;
 }
 

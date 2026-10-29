@@ -6,9 +6,13 @@
 
 import { object, optional, Schema, string } from '../schema.js';
 
+/** The shop the order belongs to. */
 export interface Shop1 {
+  /** The shop's link name. */
   slug?: string;
+  /** The product's name. */
   name?: string;
+  /** The shop page. */
   url?: string;
 }
 

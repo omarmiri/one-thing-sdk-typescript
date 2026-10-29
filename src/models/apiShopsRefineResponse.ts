@@ -7,6 +7,7 @@
 import { lazy, object, Schema } from '../schema.js';
 import { DesignSpec, designSpecSchema } from './designSpec.js';
 
+/** The redesigned page. */
 export interface ApiShopsRefineResponse {
   /** What Gemini designed. OneThing's templates render it; Gemini never writes HTML. */
   spec: DesignSpec;

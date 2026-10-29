@@ -6,11 +6,17 @@
 
 import { boolean, number, object, Schema, string } from '../schema.js';
 
+/** One store's offer. */
 export interface Offer1 {
+  /** The store. */
   retailer: string;
+  /** The store's price. */
   price: number;
+  /** ISO 4217 currency code. */
   currency: string;
+  /** Whether the store has it in stock. */
   inStock: boolean;
+  /** A tracked buy link at that store. */
   url: string;
 }
 

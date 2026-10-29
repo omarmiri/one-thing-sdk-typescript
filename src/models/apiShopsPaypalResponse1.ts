@@ -10,9 +10,11 @@ import {
   apiShopsPaypalResponse1StatusSchema,
 } from './containers/apiShopsPaypalResponse1Status.js';
 
+/** The shop's PayPal connection. */
 export interface ApiShopsPaypalResponse1 {
   /** The seller's PayPal merchant id. */
   merchantId: string | null;
+  /** What PayPal last said; null when nothing is connected. */
   status: ApiShopsPaypalResponse1Status | null;
 }
 

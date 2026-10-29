@@ -1,6 +1,8 @@
 
 # Status 4
 
+`created` until paid; `failed` if PayPal declined; `refunded` after a refund.
+
 ## Enumeration
 
 `Status4`

@@ -1,6 +1,8 @@
 
 # Api Shops Color Photos Response
 
+The colours that changed.
+
 ## Structure
 
 `ApiShopsColorPhotosResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `saved` | `string[]` | Required | - |
+| `saved` | `string[]` | Required | Colour labels whose photo changed. |
 
 ## Example
 
@@ -18,8 +20,8 @@ import { ApiShopsColorPhotosResponse } from 'one-thing-sdk';
 
 const apiShopsColorPhotosResponse: ApiShopsColorPhotosResponse = {
   saved: [
-    'saved5',
-    'saved6'
+    'Ice Blue',
+    'Amber'
   ],
 };
 ```

@@ -6,8 +6,11 @@
 
 import { boolean, object, optional, Schema, string } from '../schema.js';
 
+/** Whether the link name can be used. */
 export interface ApiSlugsCheckResponse {
+  /** The name, normalised. */
   slug: string;
+  /** True if no other shop has it and it isn't reserved. */
   available: boolean;
   /** Why not, when unavailable. */
   problem?: string;

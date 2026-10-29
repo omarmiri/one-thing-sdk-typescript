@@ -27,7 +27,7 @@ import { View, viewSchema } from '../models/view.js';
 import { number, optional, string } from '../schema.js';
 import { BaseApi } from './baseApi.js';
 import { ApiError } from '@apimatic/core';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 import { JsonRpcResponseError } from '../errors/jsonRpcResponseError.js';
 
 export class AgentsApi extends BaseApi {
@@ -126,18 +126,18 @@ export class AgentsApi extends BaseApi {
     req.appendTemplatePath`/api/agent/shops/${mapped.slug}/order`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'A missing or unknown option value, or sold out. `error` names the valid values.'
     );
     req.throwOn(
       403,
-      CustomError,
+      ErrorResponseError,
       "A known crawler or link previewer. They don't place orders."
     );
-    req.throwOn(404, CustomError, 'No live shop with that link name.');
+    req.throwOn(404, ErrorResponseError, 'No live shop with that link name.');
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.authenticate([]);
@@ -171,7 +171,7 @@ export class AgentsApi extends BaseApi {
     });
     req.query('agent', mapped.agent);
     req.appendTemplatePath`/api/agent/orders/${mapped.orderId}`;
-    req.throwOn(404, CustomError, 'No order with that id.');
+    req.throwOn(404, ErrorResponseError, 'No order with that id.');
     req.authenticate([]);
     return req.callAsJson(agentOrderSchema, requestOptions);
   }
@@ -205,7 +205,7 @@ export class AgentsApi extends BaseApi {
     req.query('agent', mapped.agent);
     req.query('view', mapped.view);
     req.appendTemplatePath`/api/agent/shops/${mapped.slug}`;
-    req.throwOn(404, CustomError, 'No live shop with that link name.');
+    req.throwOn(404, ErrorResponseError, 'No live shop with that link name.');
     req.authenticate([]);
     return req.callAsJson(agentProductSchema, requestOptions);
   }
@@ -253,7 +253,7 @@ export class AgentsApi extends BaseApi {
    * with `isError: true`, so the model can read them and try something else.
    *
    *
-   * @param body
+   * @param body         A JSON-RPC 2.0 request or batch.
    * @return Response from the API call
    */
   async callMcp(

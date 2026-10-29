@@ -7,7 +7,9 @@
 import { array, lazy, object, Schema } from '../schema.js';
 import { ProductCard, productCardSchema } from './productCard.js';
 
+/** The products found. */
 export interface ApiChannel3SearchResponse {
+  /** Products, best match first. */
   products: ProductCard[];
 }
 

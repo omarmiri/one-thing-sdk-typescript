@@ -1,6 +1,8 @@
 
 # Api Shops Orders Refund Response
 
+The refund.
+
 ## Structure
 
 `ApiShopsOrdersRefundResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ok` | `boolean` | Required | - |
+| `ok` | `boolean` | Required | Always `true`. |
 | `refundId` | `string \| null \| undefined` | Optional | PayPal's refund id; null when `record` was used. |
 
 ## Example
@@ -18,8 +20,8 @@
 import { ApiShopsOrdersRefundResponse } from 'one-thing-sdk';
 
 const apiShopsOrdersRefundResponse: ApiShopsOrdersRefundResponse = {
-  ok: false,
-  refundId: 'refundId6',
+  ok: true,
+  refundId: '1JU08902781691411',
 };
 ```
 

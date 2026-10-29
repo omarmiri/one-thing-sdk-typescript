@@ -1,6 +1,8 @@
 
 # Ai Source
 
+Who designed the page: `gemini`, or `fallback` when Gemini wasn't available and a plain template was used.
+
 ## Enumeration
 
 `AiSource`

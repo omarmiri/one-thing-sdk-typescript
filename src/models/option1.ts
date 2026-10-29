@@ -6,8 +6,11 @@
 
 import { array, object, Schema, string } from '../schema.js';
 
+/** One option and its values. */
 export interface Option1 {
+  /** The option's name, which is also its query parameter on `order_url`. */
   name: string;
+  /** The values the buyer can pick. */
   values: string[];
 }
 

@@ -1,6 +1,8 @@
 
 # Fulfillment
 
+`to_ship` until the seller adds tracking, then `shipped`.
+
 ## Enumeration
 
 `Fulfillment`

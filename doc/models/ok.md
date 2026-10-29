@@ -1,6 +1,8 @@
 
 # Ok
 
+Confirms the change.
+
 ## Structure
 
 `Ok`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ok` | `boolean` | Required | - |
+| `ok` | `boolean` | Required | Always `true`. |
 
 ## Example
 
@@ -17,7 +19,7 @@
 import { Ok } from 'one-thing-sdk';
 
 const ok: Ok = {
-  ok: false,
+  ok: true,
 };
 ```
 

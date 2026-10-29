@@ -12,6 +12,7 @@ export interface PayPalStatus {
   receivable: boolean;
   /** The seller has confirmed their email with PayPal. */
   emailConfirmed: boolean;
+  /** When OneThing last asked PayPal. */
   checkedAt: string;
 }
 

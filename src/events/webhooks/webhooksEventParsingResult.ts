@@ -24,8 +24,8 @@ export namespace WebhooksEventParsingResult {
   /**
    * Validation method to narrow down union type to OrderEvent type case.
    *
-   * If a shop sets `zapier_hook_url` (a `https://hooks.zapier.com/` Catch Hook), every paid
-   * and shipped order is POSTed to it. Best effort: a failing hook never affects the sale.
+   * If a shop sets `zapier_hook_url` (a `https://hooks.zapier.com/` Catch Hook), every paid,
+   * shipped and refunded order is POSTed to it. Best effort: a failing hook never affects the sale.
    *
    */
   export function isOrderEvent(value: unknown): value is OrderEvent {

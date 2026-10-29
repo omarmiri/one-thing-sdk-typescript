@@ -1,6 +1,8 @@
 
 # Faq
 
+One question and its answer.
+
 ## Structure
 
 `Faq`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `q` | `string` | Required | - |
-| `a` | `string` | Required | - |
+| `q` | `string` | Required | The question. |
+| `a` | `string` | Required | The answer. |
 
 ## Example
 
@@ -18,8 +20,8 @@
 import { Faq } from 'one-thing-sdk';
 
 const faq: Faq = {
-  q: 'q0',
-  a: 'a8',
+  q: 'Are these suitable for outdoor skating?',
+  a: 'Yes, on indoor rink floors and paved outdoor paths.',
 };
 ```
 

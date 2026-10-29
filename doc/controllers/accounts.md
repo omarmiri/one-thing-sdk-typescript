@@ -34,7 +34,7 @@ async signIn(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ApiAccountSigninRequest`](../../doc/models/api-account-signin-request.md) | Body, Required | - |
+| `body` | [`ApiAccountSigninRequest`](../../doc/models/api-account-signin-request.md) | Body, Required | The email or phone number to sign in with. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -70,7 +70,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -91,7 +91,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Sign Out
@@ -181,7 +181,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance.
 ## Example Usage
 
 ```ts
-const next = '/new';
+const next = '/account';
 
 try {
   const response = await accountsApi.logInWithPayPal(next);
@@ -203,7 +203,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -214,5 +214,5 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 503 | Log in with PayPal isn't switched on for this server. | [`CustomError`](../../doc/models/custom-error.md) |
+| 503 | Log in with PayPal isn't switched on for this server. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 

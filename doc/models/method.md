@@ -1,6 +1,8 @@
 
 # Method
 
+The MCP method. `tools/call` runs a tool; `tools/list` lists them.
+
 ## Enumeration
 
 `Method`

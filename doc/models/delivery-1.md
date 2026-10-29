@@ -1,6 +1,8 @@
 
 # Delivery 1
 
+Digital products: `file` or `access_code`.
+
 ## Enumeration
 
 `Delivery1`

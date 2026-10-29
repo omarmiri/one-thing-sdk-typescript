@@ -6,6 +6,7 @@
 
 import { object, optional, Schema, string } from '../schema.js';
 
+/** Where to come back to. */
 export interface ApiShopsPaypalRequest {
   /** Platform key only. Where to send the seller after PayPal. */
   returnUrl?: string;

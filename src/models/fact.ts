@@ -6,8 +6,11 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** One answered question. */
 export interface Fact {
+  /** The detail's label. */
   label: string;
+  /** The answer. */
   value: string;
 }
 

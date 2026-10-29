@@ -22,19 +22,31 @@ import { ProductType, productTypeSchema } from './productType.js';
 import { ShopOption, shopOptionSchema } from './shopOption.js';
 import { Status, statusSchema } from './status.js';
 
+/** The fields to change. Anything left out stays as it is. */
 export interface ShopUpdate {
+  /** A new link name. The old one keeps redirecting. */
   slug?: string;
+  /** `live` publishes the shop; `draft` takes it down. */
   status?: Status;
   /** `referral` only for shops created from Channel3. */
   productType?: ProductType;
+  /** The price in USD. */
   price?: number;
+  /** Shipping per order, in USD. */
   shipping?: number;
+  /** How many are for sale; null for unlimited. */
   stock?: number | null;
+  /** Comma-separated ISO country codes; null or empty means anywhere PayPal ships. */
   shipCountries?: string | null;
+  /** Digital products: `file` or `access_code`. */
   delivery?: Delivery1;
+  /** Access-code products: where buyers enter their code. */
   accessUrl?: string | null;
+  /** The PayPal account paid when no account is connected. */
   paypalEmail?: string | null;
+  /** Where order notifications go. */
   sellerEmail?: string | null;
+  /** A Zapier Catch Hook for order events; null removes it. */
   zapierHookUrl?: string | null;
   /** Feature the shop at `/gallery` while it's live. Off by default. */
   inGallery?: boolean;

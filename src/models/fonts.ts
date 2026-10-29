@@ -6,8 +6,11 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** Google Fonts for the page. */
 export interface Fonts {
+  /** The headings font. */
   heading: string;
+  /** The body text font. */
   body: string;
 }
 

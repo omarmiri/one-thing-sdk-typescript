@@ -7,7 +7,9 @@
 import { array, lazy, object, Schema } from '../schema.js';
 import { Photo, photoSchema } from './photo.js';
 
+/** The shop's photos. */
 export interface ShopPhotos {
+  /** Every photo, the cover first. */
   photos: Photo[];
 }
 

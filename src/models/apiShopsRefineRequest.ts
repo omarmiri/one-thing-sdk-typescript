@@ -6,7 +6,9 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The design change, in words. */
 export interface ApiShopsRefineRequest {
+  /** What to change, e.g. "make it feel more premium". */
   instruction: string;
 }
 

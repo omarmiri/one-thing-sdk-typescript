@@ -10,9 +10,11 @@ import {
   agentShopSummarySchema,
 } from './agentShopSummary.js';
 
+/** The matching shops, with a reply to show the buyer. */
 export interface ApiAgentShopsResponse {
   /** A suggested reply to the buyer, in Markdown: each shop's cover photo as an image, its name, price and headline, then "Which one?". Chats that block images from other sites just leave the image lines out. */
   showBuyer: string;
+  /** Shops, best match first. */
   shops: AgentShopSummary[];
   /** False when nothing matched the query and `shops` is the newest gallery shops instead; `show_buyer` then starts by saying so. */
   matched: boolean;

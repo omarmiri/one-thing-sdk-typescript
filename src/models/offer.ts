@@ -6,11 +6,17 @@
 
 import { boolean, number, object, Schema, string } from '../schema.js';
 
+/** One store's offer. */
 export interface Offer {
+  /** The store's domain. */
   domain: string;
+  /** A Channel3-tracked buy link, credited to this shop. */
   url: string;
+  /** The store's price. */
   price: number;
+  /** ISO 4217 currency code. */
   currency: string;
+  /** Whether the store has it in stock. */
   inStock: boolean;
   /** Maximum commission rate, 0–1 (0.08 = 8%). */
   commission: number;

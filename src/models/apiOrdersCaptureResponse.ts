@@ -6,9 +6,11 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The paid order. */
 export interface ApiOrdersCaptureResponse {
   /** OneThing's order id; the thank-you page is `/<slug>/thanks?order=<orderId>`. */
   orderId: string;
+  /** Always `paid`. */
   status: string;
 }
 

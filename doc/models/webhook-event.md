@@ -1,6 +1,8 @@
 
 # Webhook Event
 
+A PayPal webhook delivery for this shop's orders.
+
 ## Structure
 
 `WebhookEvent`
@@ -10,12 +12,12 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `id` | `string` | Required | PayPal's event id. |
-| `eventType` | `string` | Required | - |
-| `paypalOrderId` | `string \| null \| undefined` | Optional | - |
-| `summary` | `string \| null \| undefined` | Optional | - |
+| `eventType` | `string` | Required | PayPal's event type. |
+| `paypalOrderId` | `string \| null \| undefined` | Optional | The PayPal order it was about. |
+| `summary` | `string \| null \| undefined` | Optional | The amount, or PayPal's summary. |
 | `verified` | `boolean` | Required | Whether PayPal confirmed the delivery's signature. |
-| `outcome` | `string` | Required | - |
-| `receivedAt` | `string` | Required | - |
+| `outcome` | `string` | Required | What OneThing did with it. |
+| `receivedAt` | `string` | Required | When it arrived. |
 
 ## Example
 
@@ -23,12 +25,12 @@
 import { WebhookEvent } from 'one-thing-sdk';
 
 const webhookEvent: WebhookEvent = {
-  id: 'id0',
+  id: 'WH-2WR32451HC0233532-67976317FL4543714',
   eventType: 'PAYMENT.CAPTURE.COMPLETED',
-  verified: false,
+  verified: true,
   outcome: 'Confirmed: order already paid',
-  receivedAt: '2016-03-13T12:52:32.123Z',
-  paypalOrderId: 'paypal_order_id0',
+  receivedAt: '2026-10-22T02:41:37Z',
+  paypalOrderId: '5O190127TN364715T',
   summary: '2.99 USD',
 };
 ```

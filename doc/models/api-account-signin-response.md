@@ -1,6 +1,8 @@
 
 # Api Account Signin Response
 
+The signed-in account.
+
 ## Structure
 
 `ApiAccountSigninResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `string` | Required | - |
+| `id` | `string` | Required | The account's id. |
 | `email` | `string \| null` | Required | Lower-cased. |
 | `phone` | `string \| null` | Required | Digits, with a leading + if one was given. |
 
@@ -19,9 +21,9 @@
 import { ApiAccountSigninResponse } from 'one-thing-sdk';
 
 const apiAccountSigninResponse: ApiAccountSigninResponse = {
-  id: 'id4',
-  email: 'email2',
-  phone: 'phone6',
+  id: 'acc_Vq3nN8cT0bLx2YwE',
+  email: 'maker@example.com',
+  phone: '+15555550123',
 };
 ```
 

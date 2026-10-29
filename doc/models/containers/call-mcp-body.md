@@ -21,7 +21,9 @@
 ```ts
 const value: CallMcpBody = {
   jsonrpc: '2.0',
-  method: Method.EnumToolslist,
+  method: Method.EnumToolscall,
+  id: 1,
+  params: { 'name': 'get_product', 'arguments': { 'shop': 'vintageskates' } },
 };
 ```
 
@@ -34,8 +36,10 @@ const value: CallMcpBody = {
 ```ts
 const value: CallMcpBody = [
   {
-  jsonrpc: 'jsonrpc6',
-  method: Method.EnumToolslist,
+  jsonrpc: '2.0',
+  method: Method.EnumToolscall,
+  id: 1,
+  params: { 'name': 'get_product', 'arguments': { 'shop': 'vintageskates' } },
 }
 ];
 ```

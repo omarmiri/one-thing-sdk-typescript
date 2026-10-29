@@ -12,7 +12,9 @@ export interface AgentCreatedOrder {
   showBuyer?: string;
   /** Who this request was credited to in the seller's stats: a recognised user agent, else the name the agent gave itself (`?agent=`, or the MCP client's name), else the user agent's first word. */
   agentName?: string;
+  /** The order's id, for `get_order` and `getAgentOrder`. */
   orderId: string;
+  /** Always `awaiting_buyer_approval`: nothing is charged until the buyer approves at PayPal. */
   status: string;
   /** The total with shipping, as a label. */
   total: string;
@@ -22,6 +24,7 @@ export interface AgentCreatedOrder {
   payUrl: string;
   /** `getAgentOrder` for this order. */
   statusUrl: string;
+  /** What the agent should do next, in plain words: show `pay_url`, then check `status_url` once the buyer says they've paid. */
   nextStep: string;
 }
 

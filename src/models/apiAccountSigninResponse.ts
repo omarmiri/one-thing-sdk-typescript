@@ -6,7 +6,9 @@
 
 import { nullable, object, Schema, string } from '../schema.js';
 
+/** The signed-in account. */
 export interface ApiAccountSigninResponse {
+  /** The account's id. */
   id: string;
   /** Lower-cased. */
   email: string | null;

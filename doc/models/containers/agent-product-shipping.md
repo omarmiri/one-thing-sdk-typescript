@@ -19,12 +19,11 @@
 
 ```ts
 const value: AgentProductShipping = {
-  amount: 194.54,
-  currency: 'currency2',
+  amount: 15,
+  currency: 'USD',
   shipsTo: [
-    'ships_to5',
-    'ships_to6',
-    'ships_to7'
+    'US',
+    'CA'
   ],
 };
 ```

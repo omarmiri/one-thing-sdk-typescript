@@ -6,7 +6,9 @@
 
 import { dict, object, optional, Schema, string } from '../schema.js';
 
+/** The shop to buy from and the buyer's pick. */
 export interface ApiOrdersRequest {
+  /** The shop's link name. */
   slug: string;
   /** The buyer's pick, one value per option, keyed by option name. */
   options?: Record<string, string>;

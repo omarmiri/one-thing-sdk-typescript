@@ -1,6 +1,8 @@
 
 # Shipping
 
+Shipping cost and destinations.
+
 ## Structure
 
 `Shipping`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `amount` | `number` | Required | - |
-| `currency` | `string` | Required | - |
+| `amount` | `number` | Required | Shipping cost per order. |
+| `currency` | `string` | Required | ISO 4217 currency code. |
 | `shipsTo` | `string[]` | Required | Country codes; empty means anywhere PayPal ships. |
 
 ## Example
@@ -19,12 +21,11 @@
 import { Shipping } from 'one-thing-sdk';
 
 const shipping: Shipping = {
-  amount: 113.16,
-  currency: 'currency4',
+  amount: 15,
+  currency: 'USD',
   shipsTo: [
-    'ships_to7',
-    'ships_to8',
-    'ships_to9'
+    'US',
+    'CA'
   ],
 };
 ```

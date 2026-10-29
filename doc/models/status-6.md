@@ -1,6 +1,8 @@
 
 # Status 6
 
+`pending` until the buyer approves at PayPal.
+
 ## Enumeration
 
 `Status6`

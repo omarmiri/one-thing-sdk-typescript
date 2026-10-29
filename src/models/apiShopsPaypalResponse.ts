@@ -6,6 +6,7 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The onboarding link. */
 export interface ApiShopsPaypalResponse {
   /** PayPal's onboarding page for this shop. */
   url: string;

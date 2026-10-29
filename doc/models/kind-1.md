@@ -1,6 +1,8 @@
 
 # Kind 1
 
+`physical` ships, `digital` downloads or unlocks with a code, `referral` is bought at another store.
+
 ## Enumeration
 
 `Kind1`

@@ -6,8 +6,11 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** One product fact. */
 export interface Detail {
+  /** What the fact is about. */
   label: string;
+  /** The fact. */
   value: string;
 }
 

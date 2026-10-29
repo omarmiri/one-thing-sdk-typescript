@@ -1,6 +1,8 @@
 
 # Api Shops Match Photos Request
 
+The colours to find photos for.
+
 ## Structure
 
 `ApiShopsMatchPhotosRequest`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `colors` | [`Color[]`](../../doc/models/color.md) | Required | **Constraints**: *Minimum Items*: `1`, *Maximum Items*: `12` |
+| `colors` | [`Color[]`](../../doc/models/color.md) | Required | The colour option's values.<br><br>**Constraints**: *Minimum Items*: `1`, *Maximum Items*: `12` |
 
 ## Example
 
@@ -19,8 +21,8 @@ import { ApiShopsMatchPhotosRequest } from 'one-thing-sdk';
 const apiShopsMatchPhotosRequest: ApiShopsMatchPhotosRequest = {
   colors: [
     {
-      label: 'Forest green',
-      hex: '#14171a',
+      label: 'Ice Blue',
+      hex: '#9fd3e6',
     }
   ],
 };

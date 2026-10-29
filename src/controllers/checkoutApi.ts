@@ -24,7 +24,7 @@ import {
 import { string } from '../schema.js';
 import { BaseApi } from './baseApi.js';
 import { ApiOrdersCapture409Error } from '../errors/apiOrdersCapture409Error.js';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 
 export class CheckoutApi extends BaseApi {
   /**
@@ -41,12 +41,12 @@ export class CheckoutApi extends BaseApi {
     const req = this.createRequest('GET', '/api/paypal/client-token');
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.throwOn(
       503,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([]);
@@ -60,7 +60,7 @@ export class CheckoutApi extends BaseApi {
    * If the shop has buyer `options`, send one value for each. A sold-out combination answers 409.
    *
    *
-   * @param body
+   * @param body         The shop and the buyer's pick.
    * @return Response from the API call
    */
   async createCheckoutOrder(
@@ -73,32 +73,32 @@ export class CheckoutApi extends BaseApi {
     req.json(mapped.body);
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       409,
-      CustomError,
+      ErrorResponseError,
       'Taken or unavailable (a link name, or a sold-out product).'
     );
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.throwOn(
       503,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([]);
@@ -125,12 +125,12 @@ export class CheckoutApi extends BaseApi {
     req.appendTemplatePath`/api/orders/${mapped.paypalOrderId}/capture`;
     req.throwOn(
       402,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
@@ -140,17 +140,17 @@ export class CheckoutApi extends BaseApi {
     );
     req.throwOn(
       410,
-      CustomError,
+      ErrorResponseError,
       "The last unit (or the last of the buyer's combination) sold while they were paying, or the PayPal checkout expired before they paid. The payment isn't captured, so the buyer isn't charged."
     );
     req.throwOn(
       422,
-      CustomError,
+      ErrorResponseError,
       "The buyer's funding source was declined (`INSTRUMENT_DECLINED`); they can try another."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([]);

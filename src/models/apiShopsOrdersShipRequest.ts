@@ -7,10 +7,13 @@
 import { object, optional, Schema, string } from '../schema.js';
 import { Carrier, carrierSchema } from './carrier.js';
 
+/** The shipment's tracking. */
 export interface ApiShopsOrdersShipRequest {
+  /** The carrier. `OTHER` needs `carrierName`. */
   carrier: Carrier;
   /** Required when `carrier` is `OTHER`. */
   carrierName?: string;
+  /** The carrier's tracking number. */
   trackingNumber: string;
 }
 

@@ -6,6 +6,7 @@
 
 import { array, object, Schema, string } from '../schema.js';
 
+/** The new photo order. */
 export interface ApiShopsPhotosRequest {
   /** Photo ids, in order. */
   photos: string[];

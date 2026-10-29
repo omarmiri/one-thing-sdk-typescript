@@ -6,7 +6,9 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** One photo. */
 export interface Photo {
+  /** The photo's id, for `getImage`, `setPhotoOrder` and colour matching. */
   id: string;
   /** Public image URL on this site. */
   url: string;

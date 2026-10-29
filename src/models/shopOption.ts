@@ -10,9 +10,11 @@ import { OptionValue, optionValueSchema } from './optionValue.js';
 
 /** Something the buyer picks, such as a size or a colour. The shop still sells one product. */
 export interface ShopOption {
+  /** What the buyer is choosing. */
   name: string;
   /** `color` shows swatches, and the photo of the picked colour. */
   kind: Kind;
+  /** The values to pick from. */
   values: OptionValue[];
 }
 

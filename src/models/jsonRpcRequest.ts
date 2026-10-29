@@ -19,10 +19,13 @@ import {
 } from './containers/jsonRpcRequestId.js';
 import { Method, methodSchema } from './method.js';
 
+/** A JSON-RPC 2.0 request to the MCP server. */
 export interface JsonRpcRequest {
+  /** Always `2.0`. */
   jsonrpc: string;
   /** Leave out for a notification. */
   id?: JsonRpcRequestId | null;
+  /** The MCP method. `tools/call` runs a tool; `tools/list` lists them. */
   method: Method;
   /** For `tools/call`: `{ name, arguments }`. */
   params?: unknown;

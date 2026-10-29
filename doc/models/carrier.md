@@ -1,6 +1,8 @@
 
 # Carrier
 
+The carrier. `OTHER` needs `carrierName`.
+
 ## Enumeration
 
 `Carrier`

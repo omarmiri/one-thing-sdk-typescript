@@ -1,6 +1,8 @@
 
 # Api Shops Orders Refund Request
 
+How to refund.
+
 ## Structure
 
 `ApiShopsOrdersRefundRequest`

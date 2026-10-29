@@ -226,7 +226,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const agent = 'ChatGPT';
 
@@ -256,7 +256,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -284,10 +284,10 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | A missing or unknown option value, or sold out. `error` names the valid values. | [`CustomError`](../../doc/models/custom-error.md) |
-| 403 | A known crawler or link previewer. They don't place orders. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No live shop with that link name. | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | A missing or unknown option value, or sold out. `error` names the valid values. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 403 | A known crawler or link previewer. They don't place orders. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No live shop with that link name. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Get Agent Order
@@ -348,7 +348,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -381,7 +381,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No order with that id. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No order with that id. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Get Agent Product
@@ -417,7 +417,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const agent = 'ChatGPT';
 
@@ -447,7 +447,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -545,7 +545,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No live shop with that link name. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No live shop with that link name. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Call Mcp

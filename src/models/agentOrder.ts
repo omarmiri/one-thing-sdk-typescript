@@ -18,12 +18,15 @@ export interface AgentOrder {
   showBuyer?: string;
   /** Who this request was credited to in the seller's stats: a recognised user agent, else the name the agent gave itself (`?agent=`, or the MCP client's name), else the user agent's first word. */
   agentName?: string;
+  /** The order's id. */
   orderId: string;
   /** `declined`: PayPal declined it, nothing charged, the buyer can open `pay_url` again. `sold_out`: it sold out before the payment was captured. `expired`: the PayPal checkout expired; create a new order. `failed`: PayPal couldn't be reached; ask again. */
   status: Status2;
+  /** The product's name. */
   product: string;
   /** The buyer's pick, one value per option, keyed by option name. */
   options?: Record<string, string>;
+  /** What the order costs, as numbers. */
   amount: Amount;
   /** The total as a label, e.g. `$255.00`. */
   total: string;
@@ -31,6 +34,7 @@ export interface AgentOrder {
   payUrl?: string;
   /** Unpaid orders. What the agent should do next, in plain words. */
   nextStep?: string;
+  /** Paid orders. When PayPal captured the payment. */
   paidAt?: string;
   /** Paid orders. The buyer's thank-you page. */
   receiptUrl?: string;

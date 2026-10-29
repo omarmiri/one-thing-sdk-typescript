@@ -1,6 +1,8 @@
 
 # Tracking
 
+The carrier and tracking number once shipped; null before.
+
 ## Structure
 
 `Tracking`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `carrier` | `string \| undefined` | Optional | - |
-| `number` | `string \| undefined` | Optional | - |
+| `carrier` | `string \| undefined` | Optional | The shipping carrier. |
+| `number` | `string \| undefined` | Optional | The tracking number. |
 
 ## Example
 
@@ -18,8 +20,8 @@
 import { Tracking } from 'one-thing-sdk';
 
 const tracking: Tracking = {
-  carrier: 'carrier2',
-  number: 'number8',
+  carrier: 'USPS',
+  number: '9400111899223197428490',
 };
 ```
 

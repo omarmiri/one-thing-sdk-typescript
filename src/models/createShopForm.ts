@@ -9,7 +9,9 @@ import { Delivery, deliverySchema } from './delivery.js';
 import { Source, sourceSchema } from './source.js';
 import { Type, typeSchema } from './type.js';
 
+/** What to make a shop from. Only `source` is required; the AI guesses the rest and the seller corrects it with `updateShop`. */
 export interface CreateShopForm {
+  /** What the shop starts from: a photo (with an optional description), a product link, or a Channel3 product to recommend. */
   source: Source;
   /** `source=photo`: the product photo, up to 8 MB. */
   photo?: string;
@@ -21,6 +23,7 @@ export interface CreateShopForm {
   productId?: string;
   /** The link name you want. If omitted, the AI suggests one. */
   slug?: string;
+  /** `physical` ships, `digital` is a file or an access code, `auto` lets the AI decide. */
   type?: Type;
   /** For digital products. If omitted, the AI guesses. */
   delivery?: Delivery;
@@ -28,11 +31,17 @@ export interface CreateShopForm {
   accessUrl?: string;
   /** USD. If omitted, the AI suggests a price. */
   price?: number;
+  /** Physical products: shipping per order, in USD. If omitted, the AI suggests it. */
   shipping?: number;
+  /** How many are for sale. Leave out for unlimited. */
   stock?: number;
+  /** Physical products: comma-separated ISO country codes to ship to. Empty means anywhere PayPal ships. */
   shipCountries?: string;
+  /** The PayPal account that gets paid, if the seller doesn't connect one with `connectPayPal`. */
   paypalEmail?: string;
+  /** Where order notifications go. */
   sellerEmail?: string;
+  /** Digital products sold as a file: the file buyers download, up to 25 MB. Can also be added later with `uploadDigitalFile`. */
   digitalFile?: string;
 }
 

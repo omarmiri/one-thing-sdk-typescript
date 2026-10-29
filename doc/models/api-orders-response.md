@@ -1,6 +1,8 @@
 
 # Api Orders Response
 
+The PayPal order to approve.
+
 ## Structure
 
 `ApiOrdersResponse`
@@ -17,7 +19,7 @@
 import { ApiOrdersResponse } from 'one-thing-sdk';
 
 const apiOrdersResponse: ApiOrdersResponse = {
-  id: 'id8',
+  id: '5O190127TN364715T',
 };
 ```
 

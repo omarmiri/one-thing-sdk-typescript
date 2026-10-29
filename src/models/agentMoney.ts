@@ -6,9 +6,13 @@
 
 import { number, object, optional, Schema, string } from '../schema.js';
 
+/** An amount of money, as a number and as a label. */
 export interface AgentMoney {
+  /** The amount in the currency's main unit (dollars, not cents). */
   amount: number;
+  /** ISO 4217 currency code. */
   currency: string;
+  /** The amount formatted for people. */
   label?: string;
 }
 

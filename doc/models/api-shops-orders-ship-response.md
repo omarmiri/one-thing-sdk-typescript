@@ -1,6 +1,8 @@
 
 # Api Shops Orders Ship Response
 
+The order is marked shipped.
+
 ## Structure
 
 `ApiShopsOrdersShipResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ok` | `boolean` | Required | - |
+| `ok` | `boolean` | Required | Always `true`. |
 | `synced` | `boolean` | Required | Whether PayPal accepted the tracking number. |
 
 ## Example
@@ -18,8 +20,8 @@
 import { ApiShopsOrdersShipResponse } from 'one-thing-sdk';
 
 const apiShopsOrdersShipResponse: ApiShopsOrdersShipResponse = {
-  ok: false,
-  synced: false,
+  ok: true,
+  synced: true,
 };
 ```
 

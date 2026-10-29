@@ -22,22 +22,39 @@ import { ProductType2, productType2Schema } from './productType2.js';
 
 /** What Gemini designed. OneThing's templates render it; Gemini never writes HTML. */
 export interface DesignSpec {
+  /** What the AI decided the product is. */
   productType: ProductType2;
+  /** The product's name. */
   productName: string;
+  /** The page template: `bold-hero` (image first, punchy), `editorial` (magazine), `minimal` (quiet, lots of space) or `playful`. */
   layout: Layout;
+  /** The page colours, taken from the photo. Text colours are checked for contrast. */
   palette: Palette;
+  /** Google Fonts for the page. */
   fonts: Fonts;
+  /** A short label above the headline. */
   eyebrow?: string;
+  /** The page's main headline. */
   headline: string;
+  /** A line under the headline. */
   subheadline?: string;
+  /** A short paragraph about the product. */
   story?: string;
+  /** Short selling points. */
   bullets: string[];
+  /** Product facts shown on the page. */
   details?: Detail[];
+  /** Questions buyers will ask, with answers. */
   faq: Faq[];
+  /** The buy button's text. */
   ctaLabel: string;
+  /** The AI's price suggestion, in USD. */
   suggestedPriceUsd?: number;
+  /** The AI's shipping suggestion, in USD. */
   suggestedShippingUsd?: number;
+  /** Alt text for the product photo. */
   imageAlt?: string;
+  /** The prompt used to generate hero art for the page. */
   heroPrompt?: string;
 }
 

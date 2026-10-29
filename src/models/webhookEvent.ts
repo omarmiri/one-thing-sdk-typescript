@@ -13,15 +13,21 @@ import {
   string,
 } from '../schema.js';
 
+/** A PayPal webhook delivery for this shop's orders. */
 export interface WebhookEvent {
   /** PayPal's event id. */
   id: string;
+  /** PayPal's event type. */
   eventType: string;
+  /** The PayPal order it was about. */
   paypalOrderId?: string | null;
+  /** The amount, or PayPal's summary. */
   summary?: string | null;
   /** Whether PayPal confirmed the delivery's signature. */
   verified: boolean;
+  /** What OneThing did with it. */
   outcome: string;
+  /** When it arrived. */
   receivedAt: string;
 }
 

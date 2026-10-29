@@ -12,7 +12,9 @@ import { Option, optionSchema } from './option.js';
 export interface Suggestions {
   /** A single item (vintage, handmade), so options and stock don't apply. */
   oneOfAKind: boolean;
+  /** Options buyers will likely want to pick. */
   options: Option[];
+  /** Questions buyers will ask that the listing doesn't answer yet. */
   missingFacts: MissingFact[];
 }
 

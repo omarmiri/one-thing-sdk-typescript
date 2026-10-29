@@ -1,6 +1,8 @@
 
 # Api Slugs Check Response
 
+Whether the link name can be used.
+
 ## Structure
 
 `ApiSlugsCheckResponse`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `slug` | `string` | Required | - |
-| `available` | `boolean` | Required | - |
+| `slug` | `string` | Required | The name, normalised. |
+| `available` | `boolean` | Required | True if no other shop has it and it isn't reserved. |
 | `problem` | `string \| undefined` | Optional | Why not, when unavailable. |
 
 ## Example
@@ -19,9 +21,9 @@
 import { ApiSlugsCheckResponse } from 'one-thing-sdk';
 
 const apiSlugsCheckResponse: ApiSlugsCheckResponse = {
-  slug: 'slug8',
-  available: false,
-  problem: 'problem8',
+  slug: 'vintageskates',
+  available: true,
+  problem: 'Taken. Try another name.',
 };
 ```
 

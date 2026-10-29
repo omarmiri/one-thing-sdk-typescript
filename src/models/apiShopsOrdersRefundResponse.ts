@@ -13,7 +13,9 @@ import {
   string,
 } from '../schema.js';
 
+/** The refund. */
 export interface ApiShopsOrdersRefundResponse {
+  /** Always `true`. */
   ok: boolean;
   /** PayPal's refund id; null when `record` was used. */
   refundId?: string | null;

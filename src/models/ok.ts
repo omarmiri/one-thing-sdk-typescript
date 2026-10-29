@@ -6,7 +6,9 @@
 
 import { boolean, object, Schema } from '../schema.js';
 
+/** Confirms the change. */
 export interface Ok {
+  /** Always `true`. */
   ok: boolean;
 }
 

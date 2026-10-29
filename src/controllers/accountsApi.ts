@@ -16,7 +16,7 @@ import {
 import { Ok, okSchema } from '../models/ok.js';
 import { optional, string } from '../schema.js';
 import { BaseApi } from './baseApi.js';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 
 export class AccountsApi extends BaseApi {
   /**
@@ -26,7 +26,7 @@ export class AccountsApi extends BaseApi {
    * older shops whose seller email matches. In a browser, sellers can instead use Log in with PayPal
    * (`/api/account/paypal`), which also records the PayPal account their sales are paid into.
    *
-   * @param body
+   * @param body         The email or phone number to sign in with.
    * @return Response from the API call
    */
   async signIn(
@@ -41,7 +41,7 @@ export class AccountsApi extends BaseApi {
     req.json(mapped.body);
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.authenticate([]);
@@ -76,7 +76,7 @@ export class AccountsApi extends BaseApi {
     req.query('next', mapped.next);
     req.throwOn(
       503,
-      CustomError,
+      ErrorResponseError,
       "Log in with PayPal isn't switched on for this server."
     );
     req.authenticate([]);

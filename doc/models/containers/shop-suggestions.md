@@ -26,8 +26,13 @@ const value: ShopSuggestions = {
       kind: Kind.Size,
       values: [
         {
+          label: 'S',
+        },
+        {
           label: 'M',
-          hex: '#14171a',
+        },
+        {
+          label: 'L',
         }
       ],
     }

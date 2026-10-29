@@ -19,9 +19,9 @@
 
 ```ts
 const value: ShopPaypalStatus = {
-  receivable: false,
-  emailConfirmed: false,
-  checkedAt: '2016-03-13T12:52:32.123Z',
+  receivable: true,
+  emailConfirmed: true,
+  checkedAt: '2026-10-22T02:41:37Z',
 };
 ```
 

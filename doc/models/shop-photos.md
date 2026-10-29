@@ -1,6 +1,8 @@
 
 # Shop Photos
 
+The shop's photos.
+
 ## Structure
 
 `ShopPhotos`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `photos` | [`Photo[]`](../../doc/models/photo.md) | Required | - |
+| `photos` | [`Photo[]`](../../doc/models/photo.md) | Required | Every photo, the cover first. |
 
 ## Example
 
@@ -19,8 +21,8 @@ import { ShopPhotos } from 'one-thing-sdk';
 const shopPhotos: ShopPhotos = {
   photos: [
     {
-      id: 'id8',
-      url: 'url2',
+      id: 'LFRvGuTU3D8i334X',
+      url: '/api/blobs/LFRvGuTU3D8i334X',
     }
   ],
 };

@@ -6,9 +6,11 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The code to check, and which shop it's for. */
 export interface ApiAccessVerifyRequest {
   /** The shop's link name. */
   shop: string;
+  /** The access code the buyer entered. Case and dashes don't matter. */
   code: string;
 }
 

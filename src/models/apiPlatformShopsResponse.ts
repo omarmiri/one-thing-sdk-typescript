@@ -7,7 +7,9 @@
 import { array, lazy, object, Schema } from '../schema.js';
 import { PlatformShop, platformShopSchema } from './platformShop.js';
 
+/** The account's shops. */
 export interface ApiPlatformShopsResponse {
+  /** Shops, newest first. */
   shops: PlatformShop[];
 }
 

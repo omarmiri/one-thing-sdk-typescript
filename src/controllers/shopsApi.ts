@@ -64,7 +64,7 @@ import { Suggestions, suggestionsSchema } from '../models/suggestions.js';
 import { Type, typeSchema } from '../models/type.js';
 import { number, optional, string } from '../schema.js';
 import { BaseApi } from './baseApi.js';
-import { CustomError } from '../errors/customError.js';
+import { ErrorResponseError } from '../errors/errorResponseError.js';
 
 export class ShopsApi extends BaseApi {
   /**
@@ -88,23 +88,29 @@ export class ShopsApi extends BaseApi {
    * `connectPayPal` for that seller.
    *
    *
-   * @param source
+   * @param source         What the shop starts from: a photo (with an optional description), a product
+   *                                      link, or a Channel3 product to recommend.
    * @param photo          `source=photo`: the product photo, up to 8 MB.
    * @param description    `source=photo`: a sentence or two about the product. Required if there is no
    *                                      photo.
    * @param url            `source=link`: a product page, or your own app or game page.
    * @param productId      `source=channel3`: a product id from `searchProducts`.
    * @param slug           The link name you want. If omitted, the AI suggests one.
-   * @param type           Example: auto
+   * @param type           `physical` ships, `digital` is a file or an access code, `auto` lets the AI
+   *                                      decide.
    * @param delivery       For digital products. If omitted, the AI guesses.
    * @param accessUrl      Where buyers use an access code.
    * @param price          USD. If omitted, the AI suggests a price.
-   * @param shipping
-   * @param stock
-   * @param shipCountries
-   * @param paypalEmail
-   * @param sellerEmail
-   * @param digitalFile
+   * @param shipping       Physical products: shipping per order, in USD. If omitted, the AI suggests
+   *                                      it.
+   * @param stock          How many are for sale. Leave out for unlimited.
+   * @param shipCountries  Physical products: comma-separated ISO country codes to ship to. Empty means
+   *                                      anywhere PayPal ships.
+   * @param paypalEmail    The PayPal account that gets paid, if the seller doesn't connect one with
+   *                                      `connectPayPal`.
+   * @param sellerEmail    Where order notifications go.
+   * @param digitalFile    Digital products sold as a file: the file buyers download, up to 25 MB. Can
+   *                                      also be added later with `uploadDigitalFile`.
    * @return Response from the API call
    */
   async createShop(
@@ -164,22 +170,22 @@ export class ShopsApi extends BaseApi {
     });
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       409,
-      CustomError,
+      ErrorResponseError,
       'Taken or unavailable (a link name, or a sold-out product).'
     );
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([{ platformKey: true }]);
@@ -201,7 +207,7 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -215,7 +221,7 @@ export class ShopsApi extends BaseApi {
    *
    *
    * @param slug         The shop's link name (current or former).
-   * @param body
+   * @param body         The fields to change; anything left out stays as it is.
    * @return Response from the API call
    */
   async updateShop(
@@ -233,12 +239,12 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -249,7 +255,7 @@ export class ShopsApi extends BaseApi {
    * "Make it warmer", "shorter copy", "more premium". Gemini edits the design spec.
    *
    * @param slug         The shop's link name (current or former).
-   * @param body
+   * @param body         The design change, in words.
    * @return Response from the API call
    */
   async refineShopDesign(
@@ -267,22 +273,22 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/refine`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -304,17 +310,17 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/hero`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -340,12 +346,12 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/file`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -373,12 +379,12 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/photos`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -389,7 +395,7 @@ export class ShopsApi extends BaseApi {
    * Sets the photo order; the first becomes the cover. Leaving a photo out removes it.
    *
    * @param slug         The shop's link name (current or former).
-   * @param body
+   * @param body         Every photo id, in the new order.
    * @return Response from the API call
    */
   async setPhotoOrder(
@@ -407,12 +413,12 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/photos`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -440,22 +446,22 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/suggest`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -467,7 +473,7 @@ export class ShopsApi extends BaseApi {
    * see it. Suggests only; save the matches with `setColorPhotos`. Needs at least two photos.
    *
    * @param slug         The shop's link name (current or former).
-   * @param body
+   * @param body         The colour option's values.
    * @return Response from the API call
    */
   async matchColorPhotos(
@@ -485,22 +491,22 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/match-photos`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       429,
-      CustomError,
+      ErrorResponseError,
       "Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -513,7 +519,7 @@ export class ShopsApi extends BaseApi {
    * photos is ignored.
    *
    * @param slug         The shop's link name (current or former).
-   * @param body
+   * @param body         The photo for each colour.
    * @return Response from the API call
    */
   async setColorPhotos(
@@ -531,12 +537,12 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/color-photos`;
     req.throwOn(
       400,
-      CustomError,
+      ErrorResponseError,
       'Something in the request needs fixing; `error` says what.'
     );
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -557,7 +563,7 @@ export class ShopsApi extends BaseApi {
    *
    *
    * @param slug         The shop's link name (current or former).
-   * @param body
+   * @param body         Platform keys only: where PayPal sends the seller back.
    * @return Response from the API call
    */
   async connectPayPal(
@@ -575,17 +581,17 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/paypal`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.throwOn(
       503,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -608,17 +614,17 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/paypal`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.throwOn(
       502,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.throwOn(
       503,
-      CustomError,
+      ErrorResponseError,
       "Gemini, PayPal or Channel3 failed or isn't configured."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);
@@ -640,7 +646,7 @@ export class ShopsApi extends BaseApi {
     req.appendTemplatePath`/api/shops/${mapped.slug}/paypal`;
     req.throwOn(
       404,
-      CustomError,
+      ErrorResponseError,
       "No such shop, or the admin token or API key doesn't match it."
     );
     req.authenticate([{ adminToken: true }, { platformKey: true }]);

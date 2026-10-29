@@ -1,6 +1,8 @@
 
 # View
 
+`json` keeps the JSON for a person opening the link in a browser.
+
 ## Enumeration
 
 `View`

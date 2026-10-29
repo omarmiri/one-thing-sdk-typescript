@@ -6,7 +6,9 @@
 
 import { object, Schema, string } from '../schema.js';
 
+/** The new draft shop and the credentials to manage it. */
 export interface CreatedShop {
+  /** The shop's link name: the page is `https://<host>/<slug>`. */
   slug: string;
   /** The admin token. Shown once; store it. */
   token: string;

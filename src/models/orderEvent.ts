@@ -9,9 +9,13 @@ import { Event, eventSchema } from './event.js';
 import { Order1, order1Schema } from './order1.js';
 import { Shop1, shop1Schema } from './shop1.js';
 
+/** What OneThing posts to the seller's Zapier hook. */
 export interface OrderEvent {
+  /** What happened. */
   event: Event;
+  /** The shop the order belongs to. */
   shop: Shop1;
+  /** The order. */
   order: Order1;
 }
 

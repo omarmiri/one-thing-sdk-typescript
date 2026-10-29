@@ -6,7 +6,9 @@
 
 import { boolean, object, Schema, string } from '../schema.js';
 
+/** The shop was saved. */
 export interface ApiShopsResponse {
+  /** Always `true`. */
   ok: boolean;
   /** The shop's link name after this change. */
   slug: string;

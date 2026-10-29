@@ -1,6 +1,8 @@
 
 # Fact
 
+One answered question.
+
 ## Structure
 
 `Fact`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `label` | `string` | Required | **Constraints**: *Maximum Length*: `30` |
-| `value` | `string` | Required | **Constraints**: *Maximum Length*: `100` |
+| `label` | `string` | Required | The detail's label.<br><br>**Constraints**: *Maximum Length*: `30` |
+| `value` | `string` | Required | The answer.<br><br>**Constraints**: *Maximum Length*: `100` |
 
 ## Example
 

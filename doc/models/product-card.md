@@ -1,6 +1,8 @@
 
 # Product Card
 
+A Channel3 product in search results.
+
 ## Structure
 
 `ProductCard`
@@ -9,14 +11,14 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `id` | `string` | Required | - |
-| `title` | `string` | Required | - |
-| `brand` | `string \| null \| undefined` | Optional | - |
-| `image` | `string` | Required | - |
-| `price` | `number` | Required | - |
-| `currency` | `string` | Required | - |
+| `id` | `string` | Required | Channel3's product id: pass it to `createShop` as `productId`. |
+| `title` | `string` | Required | The product's name. |
+| `brand` | `string \| null \| undefined` | Optional | The brand, when known. |
+| `image` | `string` | Required | The product image's URL. |
+| `price` | `number` | Required | The best offer's price. |
+| `currency` | `string` | Required | ISO 4217 currency code. |
 | `retailer` | `string` | Required | The store with the best offer. |
-| `retailers` | `number` | Required | - |
+| `retailers` | `number` | Required | How many stores sell it. |
 | `commission` | `number` | Required | Best commission rate across offers, 0–1. |
 
 ## Example
@@ -25,15 +27,15 @@
 import { ProductCard } from 'one-thing-sdk';
 
 const productCard: ProductCard = {
-  id: 'id4',
-  title: 'title0',
-  image: 'image2',
-  price: 224.18,
-  currency: 'currency4',
-  retailer: 'retailer6',
-  retailers: 142,
-  commission: 92.52,
-  brand: 'brand8',
+  id: 'ch3_7f2a9c1e',
+  title: 'Trail Running Vest 5L',
+  image: 'https://images.example.com/vest.jpg',
+  price: 240,
+  currency: 'USD',
+  retailer: 'rei.com',
+  retailers: 4,
+  commission: 0.08,
+  brand: 'Salomon',
 };
 ```
 

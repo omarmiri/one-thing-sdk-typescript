@@ -6,7 +6,9 @@
 
 import { array, object, Schema, string } from '../schema.js';
 
+/** The colours that changed. */
 export interface ApiShopsColorPhotosResponse {
+  /** Colour labels whose photo changed. */
   saved: string[];
 }
 

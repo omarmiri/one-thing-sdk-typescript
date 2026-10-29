@@ -11,9 +11,13 @@ import { Tracking, trackingSchema } from './tracking.js';
 
 /** A physical product shipped to the buyer. */
 export interface AgentDeliveryShipping {
+  /** Always `shipping`. */
   type: string;
+  /** Where it ships, from the buyer's PayPal checkout. Null if PayPal didn't share it. */
   shipTo?: ShipTo | null;
+  /** `to_ship` until the seller adds tracking, then `shipped`. */
   fulfillment: Fulfillment;
+  /** The carrier and tracking number once shipped; null before. */
   tracking?: Tracking | null;
 }
 

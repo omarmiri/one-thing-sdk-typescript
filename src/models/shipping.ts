@@ -6,8 +6,11 @@
 
 import { array, number, object, Schema, string } from '../schema.js';
 
+/** Shipping cost and destinations. */
 export interface Shipping {
+  /** Shipping cost per order. */
   amount: number;
+  /** ISO 4217 currency code. */
   currency: string;
   /** Country codes; empty means anywhere PayPal ships. */
   shipsTo: string[];

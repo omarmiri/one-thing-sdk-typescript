@@ -17,14 +17,18 @@ import {
   JsonRpcResponseId,
   jsonRpcResponseIdSchema,
 } from './containers/jsonRpcResponseId.js';
-import { Error1, error1Schema } from './error1.js';
+import { Error, errorSchema } from './error.js';
 
+/** A JSON-RPC 2.0 reply from the MCP server. */
 export interface JsonRpcResponse {
+  /** Always `2.0`. */
   jsonrpc: string;
+  /** The request's `id`. */
   id: JsonRpcResponseId | null;
   /** For `tools/call`: `content` (the answer as JSON text), `structuredContent` (the same object) and `isError`. */
   result?: unknown;
-  error?: Error1;
+  /** Present when the call failed. */
+  error?: Error;
 }
 
 export const jsonRpcResponseSchema: Schema<JsonRpcResponse> = lazy(() =>
@@ -32,6 +36,6 @@ export const jsonRpcResponseSchema: Schema<JsonRpcResponse> = lazy(() =>
     jsonrpc: ['jsonrpc', string()],
     id: ['id', nullable(jsonRpcResponseIdSchema)],
     result: ['result', optional(unknown())],
-    error: ['error', optional(error1Schema)],
+    error: ['error', optional(errorSchema)],
   })
 );

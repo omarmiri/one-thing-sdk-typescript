@@ -1,6 +1,8 @@
 
 # Created Shop
 
+The new draft shop and the credentials to manage it.
+
 ## Structure
 
 `CreatedShop`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `slug` | `string` | Required | - |
+| `slug` | `string` | Required | The shop's link name: the page is `https://<host>/<slug>`. |
 | `token` | `string` | Required | The admin token. Shown once; store it. |
 | `manageUrl` | `string` | Required | The seller's private manage page (contains the token). |
 
@@ -20,8 +22,8 @@ import { CreatedShop } from 'one-thing-sdk';
 
 const createdShop: CreatedShop = {
   slug: 'dragonflight',
-  token: 'token8',
-  manageUrl: 'manageUrl0',
+  token: '3fJ9xQm2LwP8vR1tZk7cN4bY6dHs0aEu',
+  manageUrl: '/manage/vintageskates?token=3fJ9xQm2LwP8vR1tZk7cN4bY6dHs0aEu',
 };
 ```
 

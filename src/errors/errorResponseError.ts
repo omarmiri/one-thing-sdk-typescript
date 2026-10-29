@@ -7,9 +7,9 @@
 import { ApiError } from '../core.js';
 
 /**
- * Creates an instance of Custom
+ * Creates an instance of ErrorResponse
  */
-interface Custom {
+interface ErrorResponse {
   /** A sentence you can show to a person. */
   error: string;
   /** The form field at fault, when there is one. */
@@ -18,4 +18,4 @@ interface Custom {
   detail?: string;
 }
 
-export class CustomError extends ApiError<Custom> {}
+export class ErrorResponseError extends ApiError<ErrorResponse> {}

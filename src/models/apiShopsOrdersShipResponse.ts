@@ -6,7 +6,9 @@
 
 import { boolean, object, Schema } from '../schema.js';
 
+/** The order is marked shipped. */
 export interface ApiShopsOrdersShipResponse {
+  /** Always `true`. */
   ok: boolean;
   /** Whether PayPal accepted the tracking number. */
   synced: boolean;

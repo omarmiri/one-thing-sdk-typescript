@@ -22,7 +22,7 @@ export class AccessCodesApi extends BaseApi {
    * link names, and codes typed loosely (lower case, spaces, no dashes).
    *
    *
-   * @param body
+   * @param body         The shop and the code to check.
    * @return Response from the API call
    */
   async verifyAccessCode(

@@ -33,28 +33,43 @@ export interface AgentProduct {
   agentName?: string;
   /** The link name, which the MCP tools take as `shop`. */
   shop: string;
+  /** The shop page, where a person can buy it too. */
   url: string;
+  /** The product's name. */
   name: string;
+  /** `physical` ships, `digital` downloads or unlocks with a code, `referral` is bought at another store. */
   kind: Kind1;
+  /** The shop's one-line pitch. */
   headline: string;
+  /** What the product is, in a few sentences. */
   description: string;
+  /** The product's selling points, one per line. */
   highlights: string[];
+  /** Product facts, such as size, material or format. */
   details: Detail[];
+  /** Questions buyers ask, answered by the seller's page. */
   faq: Faq[];
+  /** Photo URLs, the cover first. Show these rather than generating or searching for images. */
   images: string[];
+  /** An amount of money, as a number and as a label. */
   price?: AgentMoney;
   /** Physical products only. */
   shipping?: AgentProductShipping | null;
+  /** An amount of money, as a number and as a label. */
   total?: AgentMoney;
+  /** How the buyer gets it, in plain words. */
   delivery?: string;
+  /** `in_stock`, `in_stock (N left)` or `sold_out`. With options, see `variants`. */
   availability?: string;
   /** Pass one value per option to `create_order`. */
   options?: Option1[];
+  /** Products with options: each combination, its stock and its order link. */
   variants?: Variant[];
   /** Products without options: `orderByLink`, which orders one unit with a GET. Left out when sold out. With options, each variant has its own. */
   orderUrl?: string;
   /** Recommendations only. Bought at the retailer. */
   offers?: Offer1[];
+  /** How to buy it, written for an agent: which tool or link to use and what to ask the buyer. */
   howToBuy: string;
   /** The MCP server to order through (`getAgentProduct` only). */
   mcpServer?: string;

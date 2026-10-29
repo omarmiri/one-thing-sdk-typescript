@@ -79,22 +79,22 @@ This endpoint requires [PlatformKey](../../doc/auth/oauth-2-bearer-token.md)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `source` | [`Source`](../../doc/models/source.md) | Form, Required | - |
+| `source` | [`Source`](../../doc/models/source.md) | Form, Required | What the shop starts from: a photo (with an optional description), a product link, or a Channel3 product to recommend. |
 | `photo` | `FileWrapper \| undefined` | Form, Optional | `source=photo`: the product photo, up to 8 MB. |
 | `description` | `string \| undefined` | Form, Optional | `source=photo`: a sentence or two about the product. Required if there is no photo. |
 | `url` | `string \| undefined` | Form, Optional | `source=link`: a product page, or your own app or game page. |
 | `productId` | `string \| undefined` | Form, Optional | `source=channel3`: a product id from `searchProducts`. |
 | `slug` | `string \| undefined` | Form, Optional | The link name you want. If omitted, the AI suggests one. |
-| `type` | [`Type \| undefined`](../../doc/models/type.md) | Form, Optional | **Default**: `Type.Auto` |
+| `type` | [`Type \| undefined`](../../doc/models/type.md) | Form, Optional | `physical` ships, `digital` is a file or an access code, `auto` lets the AI decide.<br><br>**Default**: `Type.Auto` |
 | `delivery` | [`Delivery \| undefined`](../../doc/models/delivery.md) | Form, Optional | For digital products. If omitted, the AI guesses. |
 | `accessUrl` | `string \| undefined` | Form, Optional | Where buyers use an access code. |
 | `price` | `number \| undefined` | Form, Optional | USD. If omitted, the AI suggests a price. |
-| `shipping` | `number \| undefined` | Form, Optional | - |
-| `stock` | `number \| undefined` | Form, Optional | - |
-| `shipCountries` | `string \| undefined` | Form, Optional | - |
-| `paypalEmail` | `string \| undefined` | Form, Optional | - |
-| `sellerEmail` | `string \| undefined` | Form, Optional | - |
-| `digitalFile` | `FileWrapper \| undefined` | Form, Optional | - |
+| `shipping` | `number \| undefined` | Form, Optional | Physical products: shipping per order, in USD. If omitted, the AI suggests it. |
+| `stock` | `number \| undefined` | Form, Optional | How many are for sale. Leave out for unlimited. |
+| `shipCountries` | `string \| undefined` | Form, Optional | Physical products: comma-separated ISO country codes to ship to. Empty means anywhere PayPal ships. |
+| `paypalEmail` | `string \| undefined` | Form, Optional | The PayPal account that gets paid, if the seller doesn't connect one with `connectPayPal`. |
+| `sellerEmail` | `string \| undefined` | Form, Optional | Where order notifications go. |
+| `digitalFile` | `FileWrapper \| undefined` | Form, Optional | Digital products sold as a file: the file buyers download, up to 25 MB. Can also be added later with `uploadDigitalFile`. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -108,34 +108,25 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const source = Source.Photo;
 
-const description = 'Vintage cream and red quad roller skates with walnut burl heels.';
-
 const type = Type.Physical;
 
-const price = 240;
-
-const shipping = 15;
-
 const shipCountries = 'US';
-
-const paypalEmail = 'seller@example.com';
 
 try {
   const response = await shopsApi.createShop(
     source,
     undefined,
-    description,
+    undefined,
     undefined,
     undefined,
     undefined,
     type,
     undefined,
     undefined,
-    price,
-    shipping,
     undefined,
-    shipCountries,
-    paypalEmail
+    undefined,
+    undefined,
+    shipCountries
   );
 
   // Extracting fully parsed response body.
@@ -155,7 +146,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -176,10 +167,10 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 409 | Taken or unavailable (a link name, or a sold-out product). | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 409 | Taken or unavailable (a link name, or a sold-out product). | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Get Shop
@@ -213,7 +204,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await shopsApi.getShop(slug);
@@ -235,7 +226,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -351,7 +342,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Update Shop
@@ -377,7 +368,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ShopUpdate`](../../doc/models/shop-update.md) | Body, Required | - |
+| `body` | [`ShopUpdate`](../../doc/models/shop-update.md) | Body, Required | The fields to change; anything left out stays as it is. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -389,7 +380,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const body: ShopUpdate = {
   status: Status.Live,
@@ -418,7 +409,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -438,8 +429,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Refine Shop Design
@@ -463,7 +454,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsRefineRequest`](../../doc/models/api-shops-refine-request.md) | Body, Required | - |
+| `body` | [`ApiShopsRefineRequest`](../../doc/models/api-shops-refine-request.md) | Body, Required | The design change, in words. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -475,7 +466,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const body: ApiShopsRefineRequest = {
   instruction: 'Make it feel more premium',
@@ -504,7 +495,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -563,10 +554,10 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Regenerate Hero Art
@@ -600,7 +591,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await shopsApi.regenerateHeroArt(slug);
@@ -622,7 +613,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -641,9 +632,9 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Upload Digital File
@@ -679,7 +670,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const file = new FileWrapper(fs.createReadStream('dummy_file'));
 
@@ -706,7 +697,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -726,8 +717,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Add Photos
@@ -763,7 +754,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const photo = new FileWrapper(fs.createReadStream('dummy_file'));
 
@@ -790,7 +781,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -818,8 +809,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Set Photo Order
@@ -843,7 +834,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsPhotosRequest`](../../doc/models/api-shops-photos-request.md) | Body, Required | - |
+| `body` | [`ApiShopsPhotosRequest`](../../doc/models/api-shops-photos-request.md) | Body, Required | Every photo id, in the new order. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -855,7 +846,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const body: ApiShopsPhotosRequest = {
   photos: [
@@ -888,7 +879,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -916,8 +907,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Check Missing Details
@@ -956,7 +947,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await shopsApi.checkMissingDetails(slug);
@@ -978,7 +969,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -1022,10 +1013,10 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Match Color Photos
@@ -1049,7 +1040,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsMatchPhotosRequest`](../../doc/models/api-shops-match-photos-request.md) | Body, Required | - |
+| `body` | [`ApiShopsMatchPhotosRequest`](../../doc/models/api-shops-match-photos-request.md) | Body, Required | The colour option's values. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -1061,7 +1052,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const body: ApiShopsMatchPhotosRequest = {
   colors: [
@@ -1099,7 +1090,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -1121,10 +1112,10 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Set Color Photos
@@ -1148,7 +1139,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsColorPhotosRequest`](../../doc/models/api-shops-color-photos-request.md) | Body, Required | - |
+| `body` | [`ApiShopsColorPhotosRequest`](../../doc/models/api-shops-color-photos-request.md) | Body, Required | The photo for each colour. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -1160,12 +1151,12 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const body: ApiShopsColorPhotosRequest = {
   photos: {
     'Cream': 'LFRvGuTU3D8i334X',
-    'Red': 'photos9'
+    'Red': ''
   },
 };
 
@@ -1192,7 +1183,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -1214,8 +1205,8 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`CustomError`](../../doc/models/custom-error.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Connect Pay Pal
@@ -1248,7 +1239,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `string` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsPaypalRequest \| undefined`](../../doc/models/api-shops-paypal-request.md) | Body, Optional | - |
+| `body` | [`ApiShopsPaypalRequest \| undefined`](../../doc/models/api-shops-paypal-request.md) | Body, Optional | Platform keys only: where PayPal sends the seller back. |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -1260,7 +1251,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 const body: ApiShopsPaypalRequest = {
   returnUrl: 'https://www.miriogames.com/market/manage/?g=7Hq2',
@@ -1289,7 +1280,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -1308,9 +1299,9 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Get Pay Pal Connection
@@ -1344,7 +1335,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await shopsApi.getPayPalConnection(slug);
@@ -1366,7 +1357,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -1390,9 +1381,9 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Disconnect Pay Pal
@@ -1426,7 +1417,7 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const slug = 'raptorrush';
+const slug = 'vintageskates';
 
 try {
   const response = await shopsApi.disconnectPayPal(slug);
@@ -1448,7 +1439,7 @@ try {
     console.log(error.headers);
     // Extracting response error body of type `string | Stream`.
     console.log(error.body);
-    if (error instanceof CustomError) {
+    if (error instanceof ErrorResponseError) {
       console.log(error.result);
     }
   }
@@ -1467,5 +1458,5 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`CustomError`](../../doc/models/custom-error.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 

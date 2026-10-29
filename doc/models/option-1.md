@@ -1,6 +1,8 @@
 
 # Option 1
 
+One option and its values.
+
 ## Structure
 
 `Option1`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `name` | `string` | Required | - |
-| `values` | `string[]` | Required | - |
+| `name` | `string` | Required | The option's name, which is also its query parameter on `order_url`. |
+| `values` | `string[]` | Required | The values the buyer can pick. |
 
 ## Example
 
@@ -18,9 +20,11 @@
 import { Option1 } from 'one-thing-sdk';
 
 const option1: Option1 = {
-  name: 'name0',
+  name: 'Size',
   values: [
-    'values0'
+    '7',
+    '8',
+    '9'
   ],
 };
 ```

@@ -7,7 +7,9 @@
 import { array, lazy, object, Schema } from '../schema.js';
 import { Color, colorSchema } from './color.js';
 
+/** The colours to find photos for. */
 export interface ApiShopsMatchPhotosRequest {
+  /** The colour option's values. */
   colors: Color[];
 }
 

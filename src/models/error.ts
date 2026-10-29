@@ -6,12 +6,15 @@
 
 import { number, object, Schema, string } from '../schema.js';
 
-export interface Error1 {
+/** Present when the call failed. */
+export interface Error {
+  /** The JSON-RPC error code. */
   code: number;
+  /** What went wrong. */
   message: string;
 }
 
-export const error1Schema: Schema<Error1> = object({
+export const errorSchema: Schema<Error> = object({
   code: ['code', number()],
   message: ['message', string()],
 });

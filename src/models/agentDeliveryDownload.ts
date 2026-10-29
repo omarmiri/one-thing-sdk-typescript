@@ -8,8 +8,11 @@ import { object, optional, Schema, string } from '../schema.js';
 
 /** A digital file to download. */
 export interface AgentDeliveryDownload {
+  /** Always `download`. */
   type: string;
+  /** A private link to the file. It works 5 times over 14 days. */
   downloadUrl: string;
+  /** How long the link lasts and how many downloads it allows, in words. */
   note?: string;
 }
 

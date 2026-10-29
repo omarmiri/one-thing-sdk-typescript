@@ -21,24 +21,43 @@ import {
 } from './fulfillmentStatus.js';
 import { Status4, status4Schema } from './status4.js';
 
+/** An order, as the seller sees it. */
 export interface Order {
+  /** OneThing's order id. */
   id: string;
+  /** PayPal's order id. */
   paypalOrderId?: string | null;
+  /** `created` until paid; `failed` if PayPal declined; `refunded` after a refund. */
   status: Status4;
+  /** The total charged, shipping included, in cents. */
   amountCents: number;
+  /** The shipping part of `amount_cents`. */
   shippingCents?: number;
+  /** ISO 4217 currency code. */
   currency: string;
+  /** From PayPal, once paid. */
   buyerEmail?: string | null;
+  /** From PayPal, once paid. */
   buyerName?: string | null;
+  /** Physical orders: the address from PayPal checkout, by field. */
   shippingAddress?: Record<string, string> | null;
+  /** PayPal's capture id, once paid. Refunds use it. */
   captureId?: string | null;
+  /** `to_ship` and `shipped` for physical orders, `digital_sent` for digital ones, `none` before payment. */
   fulfillmentStatus: FulfillmentStatus;
+  /** Shipped orders: the carrier. */
   carrier?: string | null;
+  /** Shipped orders: the tracking number. */
   trackingNumber?: string | null;
+  /** Whether PayPal accepted the tracking number. */
   trackingSynced?: boolean;
+  /** How many times the buyer downloaded the file. */
   downloads?: number;
+  /** Access-code products: the code this buyer got. */
   accessCode?: string | null;
+  /** How many times the access code was checked. */
   codeUses?: number;
+  /** When the access code was last checked with `verifyAccessCode`. */
   codeLastUsedAt?: string | null;
   /** `agent` for orders an AI agent placed (MCP or an order link). */
   channel?: Channel;
@@ -46,10 +65,13 @@ export interface Order {
   agent?: string | null;
   /** PayPal's refund id, once refunded through OneThing. */
   refundId?: string | null;
+  /** When the order was refunded. */
   refundedAt?: string | null;
   /** The buyer's pick, one value per option, keyed by option name (see `Choice`). */
   options?: Record<string, string> | null;
+  /** When PayPal captured the payment. */
   paidAt?: string | null;
+  /** When the order was made. */
   createdAt?: string;
 }
 

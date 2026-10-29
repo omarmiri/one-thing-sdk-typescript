@@ -1,6 +1,8 @@
 
 # Status
 
+`live` publishes the shop; `draft` takes it down.
+
 ## Enumeration
 
 `Status`

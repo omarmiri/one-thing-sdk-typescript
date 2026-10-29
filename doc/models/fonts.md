@@ -1,6 +1,8 @@
 
 # Fonts
 
+Google Fonts for the page.
+
 ## Structure
 
 `Fonts`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `heading` | `string` | Required | - |
-| `body` | `string` | Required | - |
+| `heading` | `string` | Required | The headings font. |
+| `body` | `string` | Required | The body text font. |
 
 ## Example
 
@@ -18,8 +20,8 @@
 import { Fonts } from 'one-thing-sdk';
 
 const fonts: Fonts = {
-  heading: 'heading2',
-  body: 'body6',
+  heading: 'Playfair Display',
+  body: 'Inter',
 };
 ```
 

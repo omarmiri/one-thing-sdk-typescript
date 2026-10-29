@@ -11,6 +11,7 @@ import { Status6 } from '../models/status6.js';
  * Creates an instance of ApiOrdersCapture409
  */
 interface ApiOrdersCapture409 {
+  /** `pending` until the buyer approves at PayPal. */
   status?: Status6;
 }
 

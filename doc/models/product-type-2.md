@@ -1,6 +1,8 @@
 
 # Product Type 2
 
+What the AI decided the product is.
+
 ## Enumeration
 
 `ProductType2`
